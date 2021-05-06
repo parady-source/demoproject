@@ -3,7 +3,7 @@
         <div (click)="sidenav.toggle()">
             <button mat-button>
                 <mat-icon>computer</mat-icon>
-                <H2>Demo Project</H2>
+                <H2>{{ SideNavTitle }}</H2>
             </button>
         </div>
         <mat-nav-list>
@@ -11,7 +11,7 @@
                 style="color: #c4c4cc; vertical-align: middle"><span class="accent">
                     <mat-icon>home</mat-icon> Home
                 </span></a>
-                
+
             <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent"
                 style="color: #c4c4cc; vertical-align: middle">
                 <span class="full-width" *ngIf="isExpanded || isShowing">Weather</span>
@@ -46,6 +46,7 @@
             <button mat-icon-button (click)="sidenav.toggle()">
                 <mat-icon>menu</mat-icon>
             </button>
+            {{ NavTitle }}
             <span class="toolbar-spacer"></span>
             <button mat-button>Logout</button>
         </mat-toolbar>

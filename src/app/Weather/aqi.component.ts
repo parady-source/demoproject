@@ -1,8 +1,11 @@
 import {
   Component,
+  EventEmitter,
   OnInit,
+  Output,
   Injectable,
   AfterViewInit,
+  Input,
   ViewChild,
   ElementRef,
 } from '@angular/core';
@@ -27,10 +30,11 @@ export class AqiComponent implements OnInit {
   public item: Array<any> = new Array<any>();
 
   //'SiteId', 'SO2', 'CO', 'O3', 'NO2', 'NOx', 'NO', 
-  public displayedColumns: string[] = ['County', 'SiteName', 'AQI', 'Pollutant', 'Status',  'PM10', 'PM2.5', 'PublishTime'];
+  public displayedColumns: string[] = ['County', 'SiteName', 'AQI', 'Pollutant', 'Status', 'PM10', 'PM2.5', 'PublishTime'];
   public AQIRecordDataSource = new MatTableDataSource<any>();
 
   constructor(private GeneralService: GeneralService) { }
+
   ngOnInit() {
     this.getData(); //程式一啟動時即撈取資料
   }

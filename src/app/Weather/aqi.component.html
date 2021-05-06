@@ -1,129 +1,139 @@
-<div class="box">
+<mat-tab-group dynamicHeight>
+    <mat-tab>
 
-    <mat-grid-list cols="1" rowHeight="80px">
-        <mat-grid-tile>
-            <h1 class="heading"><strong>AQI </strong>List</h1>
-        </mat-grid-tile>
-    </mat-grid-list>
+        <ng-template mat-tab-label>
+            <h3><strong>AQI<span style="padding-left: 5px"></span></strong> List</h3>
+        </ng-template>
+        <div class="box">
+            <mat-grid-list cols="1" rowHeight="80px">
+                <mat-grid-tile>
+                    <mat-icon style="padding-right: 20px;">
+                        search
+                    </mat-icon>
+                    <mat-form-field style="width: 50%; vertical-align: baseline">
+                        <mat-label>請輸入關鍵字進行搜尋</mat-label>
+                        <input matInput #filter (keyup)="changed($event)" placeholder="Ex. ..." />
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
 
-    <mat-grid-list cols="4" rowHeight="80px" style="float: right;">
-        <mat-grid-tile>
-            <mat-form-field style="width: 100%; vertical-align: baseline">
-                <mat-label>請輸入關鍵字進行搜尋</mat-label>
-                <input matInput #filter (keyup)="changed($event)" placeholder="Ex. ..." />
-            </mat-form-field>
-        </mat-grid-tile>
-    </mat-grid-list>
+            <mat-table [dataSource]="AQIRecordDataSource" matSort class="mat-elevation-z8">
 
-    <mat-table [dataSource]="AQIRecordDataSource" matSort class="mat-elevation-z8">
+                <!-- <ng-container matColumnDef="SiteId">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    測站編號
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row.SiteId }} </mat-cell>
+            </ng-container> -->
 
-        <!-- <ng-container matColumnDef="SiteId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                測站編號
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.SiteId }} </mat-cell>
-        </ng-container> -->
+                <ng-container matColumnDef="County">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        縣市
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row.County }} </mat-cell>
+                </ng-container>
 
-        <ng-container matColumnDef="County">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                縣市
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.County }} </mat-cell>
-        </ng-container>
+                <ng-container matColumnDef="SiteName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        測站名稱
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row.SiteName }} </mat-cell>
+                </ng-container>
 
-        <ng-container matColumnDef="SiteName">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                測站名稱
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.SiteName }} </mat-cell>
-        </ng-container>
+                <ng-container matColumnDef="AQI">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        空氣品質指標
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row.AQI }} </mat-cell>
+                </ng-container>
 
-        <ng-container matColumnDef="AQI">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                空氣品質指標
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.AQI }} </mat-cell>
-        </ng-container>
+                <ng-container matColumnDef="Pollutant">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        空氣污染指標物
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row.Pollutant }} </mat-cell>
+                </ng-container>
 
-        <ng-container matColumnDef="Pollutant">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                空氣污染指標物
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.Pollutant }} </mat-cell>
-        </ng-container>
+                <ng-container matColumnDef="Status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        狀態
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row.Status }} </mat-cell>
+                </ng-container>
 
-        <ng-container matColumnDef="Status">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                狀態
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.Status }} </mat-cell>
-        </ng-container>
+                <!-- <ng-container matColumnDef="SO2">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    二氧化硫(ppb)
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row.SO2 }} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="CO">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    一氧化碳(ppm)
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row.CO }} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="O3">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    臭氧(ppb)
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row.O3 }} </mat-cell>
+            </ng-container> -->
 
-        <!-- <ng-container matColumnDef="SO2">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                二氧化硫(ppb)
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.SO2 }} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="CO">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                一氧化碳(ppm)
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.CO }} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="O3">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                臭氧(ppb)
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.O3 }} </mat-cell>
-        </ng-container> -->
+                <ng-container matColumnDef="PM10">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        懸浮微粒(μg/m3)
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row.PM10 }} </mat-cell>
+                </ng-container>
 
-        <ng-container matColumnDef="PM10">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                懸浮微粒(μg/m3)
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.PM10 }} </mat-cell>
-        </ng-container>
+                <ng-container matColumnDef="PM2.5">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        細懸浮微粒(μg/m3)
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row["PM2.5"] }} </mat-cell>
+                </ng-container>
 
-        <ng-container matColumnDef="PM2.5">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                細懸浮微粒(μg/m3)
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row["PM2.5"] }} </mat-cell>
-        </ng-container>
+                <!-- <ng-container matColumnDef="NO2">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    二氧化氮(ppb)
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row.NO2 }} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="NOx">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    氮氧化物(ppb)
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row.NOx }} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="NO">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    一氧化氮(ppb)
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row.NO }} </mat-cell>
+            </ng-container> -->
 
-        <!-- <ng-container matColumnDef="NO2">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                二氧化氮(ppb)
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.NO2 }} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="NOx">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                氮氧化物(ppb)
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.NOx }} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="NO">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                一氧化氮(ppb)
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.NO }} </mat-cell>
-        </ng-container> -->
-
-        <ng-container matColumnDef="PublishTime">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                資料建置日期
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.PublishTime | date: "yyyy/MM/dd HH:mm" }} </mat-cell>
-        </ng-container>
+                <ng-container matColumnDef="PublishTime">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        資料建置日期
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row.PublishTime | date: "yyyy/MM/dd HH:mm" }} </mat-cell>
+                </ng-container>
 
 
-        <!-- Header and Row Declarations -->
-        <mat-header-row *matHeaderRowDef="displayedColumns">
-        </mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-    </mat-table>
-    <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+                <!-- Header and Row Declarations -->
+                <mat-header-row *matHeaderRowDef="displayedColumns">
+                </mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+            <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+    </mat-tab>
 
-</div>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <h3><strong>AQI<span style="padding-left: 5px"></span></strong> Chart</h3>
+        </ng-template>
+        Pie Chart
+    </mat-tab>
+</mat-tab-group>

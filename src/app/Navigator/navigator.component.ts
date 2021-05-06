@@ -18,15 +18,16 @@ export class NavigatorComponent {
       shareReplay()
     );
 
-    @ViewChild('sidenav')
+  @ViewChild('sidenav')
   sidenav!: MatSidenav;
 
-    isExpanded = true;
-    showSubmenu: boolean = false;
-    isShowing = false;
-    showSubSubMenu: boolean = false;
+  isExpanded = true;
+  showSubmenu: boolean = false;
+  isShowing = false;
+  showSubSubMenu: boolean = false;
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver) { }
 
-  title = 'Demo Project';
+  public SideNavTitle = 'Demo Project';
+  public NavTitle = '';
 }
