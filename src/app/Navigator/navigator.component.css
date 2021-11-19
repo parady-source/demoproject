@@ -31,12 +31,43 @@ mat-sidenav {
 
 .submenu {
   overflow-y: hidden;
-  transition: transform 300ms ease;
+  /* transition: transform 300ms ease;
   transform: scaleY(0);
-  transform-origin: top;
+  transform-origin: top; */
+
+  -webkit-animation: fadeout 0.3s linear;
+  animation: fadeout 0.3s linear;
+
   padding-left: 30px;
+  display: none;
 }
 
 .submenu.expanded {
   transform: scaleY(1);
+  display: block;
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+::-webkit-scrollbar {
+  height: 7px;
+  width: 7px;
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555;
+  -webkit-border-radius: 1ex;
+  -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+}
+
+::-webkit-scrollbar-corner {
+  background: #111;
 }

@@ -134,6 +134,10 @@
         <ng-template mat-tab-label>
             <h3><strong>AQI<span style="padding-left: 5px"></span></strong> Chart</h3>
         </ng-template>
-        Pie Chart
+        <div style="margin: auto;width: 80%;padding: 10px;">
+            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                [legend]="barChartLegend" [chartType]="barChartType">
+            </canvas>
+        </div>
     </mat-tab>
 </mat-tab-group>

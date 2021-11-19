@@ -21,10 +21,18 @@ export class NavigatorComponent {
   @ViewChild('sidenav')
   sidenav!: MatSidenav;
 
+  // toggle SideNav
   isExpanded = true;
-  showSubmenu: boolean = false;
-  isShowing = false;
-  showSubSubMenu: boolean = false;
+
+  // toggle Weather Sub Menu
+  isWeatherExpanded = false;
+  isWeatherShowing = true;
+  showWeatherSubmenu: boolean = false;
+
+  // toggle Finance Sub Menu
+  isFinanceExpanded = false;
+  isFinanceShowing = true;
+  showFinanceSubmenu: boolean = false;
 
   constructor(private breakpointObserver: BreakpointObserver) { }
 

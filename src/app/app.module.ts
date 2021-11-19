@@ -9,6 +9,7 @@ import { NavigatorComponent } from './Navigator/navigator.component';
 import { IndexComponent } from './Index/index.component';
 import { AqiComponent } from './Weather/aqi.component';
 import { UltravioletComponent } from './Weather/ultraviolet.component';
+import { InvestmentComponent } from './Investment/investment.component';
 
 import { GeneralService } from './general.service';
 
@@ -42,11 +43,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { CdkTableModule } from '@angular/cdk/table';
+import { ChartsModule } from 'ng2-charts';
+
+import { CookieService } from 'ngx-cookie-service';
 
 const appRoutes: Routes = [
   { path: 'index', component: IndexComponent },
   { path: 'aqi', component: AqiComponent },
   { path: 'ultraviolet', component: UltravioletComponent },
+  { path: 'investment', component: InvestmentComponent },
 ];
 
 @NgModule({
@@ -56,6 +61,7 @@ const appRoutes: Routes = [
     AqiComponent,
     IndexComponent,
     UltravioletComponent,
+    InvestmentComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,9 +102,10 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
     CdkTableModule,
+    ChartsModule
   ],
   exports: [MatSortModule, MatTableModule],
-  providers: [GeneralService],
+  providers: [GeneralService, CookieService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

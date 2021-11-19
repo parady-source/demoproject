@@ -1,46 +1,64 @@
 <mat-sidenav-container fullscreen>
     <mat-sidenav mode="side" #sidenav opened position="start" mode="side">
         <div (click)="sidenav.toggle()">
-            <button mat-button>
+            <button mat-button class="full-width">
                 <mat-icon>computer</mat-icon>
                 <H2>{{ SideNavTitle }}</H2>
             </button>
         </div>
         <mat-nav-list>
-            <a mat-list-item routerLink="/index" outerLinkActive="active"
-                style="color: #c4c4cc; vertical-align: middle"><span class="accent">
-                    <mat-icon>home</mat-icon> Home
-                </span></a>
+            <a mat-list-item routerLink="/index" outerLinkActive="active" style="color:white">
+                <mat-icon style="vertical-align: text-bottom;">home</mat-icon>
+                <span class="full-width">Home</span>
+            </a>
 
-            <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent"
-                style="color: #c4c4cc; vertical-align: middle">
-                <span class="full-width" *ngIf="isExpanded || isShowing">Weather</span>
+            <mat-list-item (click)="showWeatherSubmenu = !showWeatherSubmenu" class="parent" style="color:whitesmoke">
+                <span class="full-width" *ngIf="isWeatherExpanded || isWeatherShowing">Weather</span>
                 <mat-icon mat-list-icon>light_mode</mat-icon>
-                <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">
+                <mat-icon class="menu-button" [ngClass]="{'rotated' : showWeatherSubmenu}"
+                    *ngIf="isWeatherExpanded || isWeatherShowing">
                     expand_more</mat-icon>
             </mat-list-item>
 
-            <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
-                <a mat-list-item routerLink="/aqi" routerLinkActive="active"
-                    style="color: #c4c4cc; vertical-align: middle"><span class="accent">
-                        <mat-icon>delete</mat-icon>AQI
-                    </span></a>
-                <a mat-list-item routerLink="/ultraviolet" routerLinkActive="active"
-                    style="color: #c4c4cc; vertical-align: middle"><span class="accent">
-                        <mat-icon>delete</mat-icon>UV
-                    </span></a>
+            <div class="submenu" [ngClass]="{'expanded' : showWeatherSubmenu}"
+                *ngIf="isWeatherShowing || isWeatherExpanded">
+                <a mat-list-item routerLink="/aqi" routerLinkActive="active" style="color:whitesmoke">
+                    <span class="full-width">AQI</span>
+                    <mat-icon mat-list-icon>cloud</mat-icon>
+                </a>
+                <a mat-list-item routerLink="/ultraviolet" routerLinkActive="active" style="color:whitesmoke">
+                    <span class="full-width">UV</span>
+                    <mat-icon mat-list-icon>delete</mat-icon>
+                </a>
+            </div>
+
+            <mat-list-item (click)="showFinanceSubmenu = !showFinanceSubmenu" class="parent" style="color:whitesmoke">
+                <span class="full-width" *ngIf="isFinanceExpanded || isFinanceShowing">Finance</span>
+                <mat-icon mat-list-icon>money</mat-icon>
+                <mat-icon class="menu-button" [ngClass]="{'rotated' : showFinanceSubmenu}"
+                    *ngIf="isFinanceExpanded || isFinanceShowing">
+                    expand_more</mat-icon>
+            </mat-list-item>
+
+            <div class="submenu" [ngClass]="{'expanded' : showFinanceSubmenu}"
+                *ngIf="isFinanceShowing || isFinanceExpanded">
+                <a mat-list-item routerLink="/investment" routerLinkActive="active" style="color:whitesmoke">
+                    <span class="full-width">Investment</span>
+                    <mat-icon mat-list-icon>attach_money</mat-icon>
+                </a>
             </div>
 
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
         <mat-toolbar>
-            <button mat-icon-button (click)="sidenav.toggle()">
-                <mat-icon>menu</mat-icon>
+            <button mat-icon-button (click)="sidenav.toggle();isExpanded=!isExpanded">
+                <mat-icon *ngIf="isExpanded">keyboard_arrow_left</mat-icon>
+                <mat-icon *ngIf="!isExpanded">keyboard_arrow_right</mat-icon>
             </button>
             {{ NavTitle }}
             <span class="toolbar-spacer"></span>
-            <button mat-button>Logout</button>
+            <!-- <button mat-button>Logout</button> -->
         </mat-toolbar>
         <div class="main-content">
             <p></p>

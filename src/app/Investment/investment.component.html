@@ -1,0 +1,21 @@
+<div mat-list-item *ngIf="!showInputUserId" style="float: right;padding-right:20px;">
+    <mat-icon mat-list-icon style="vertical-align: text-bottom;">person</mat-icon>
+    <span class="full-width"> {{cookieUserId}}</span>
+</div>
+<div style="text-align: center;">
+    <h3>
+        <strong>Investment<span style="padding-left: 5px"></span></strong> Statistics
+    </h3>
+    <div class="box" style="vertical-align: text-bottom;" *ngIf="showInputUserId">
+        <mat-icon>person</mat-icon>
+        <mat-form-field style="width: 50%; vertical-align: baseline">
+            <mat-label>請輸入使用者代號</mat-label>
+            <input matInput #txtUserId id="txtUserId" placeholder="Ex. ..." />
+        </mat-form-field>
+        <button mat-button (click)="GetUserId(txtUserId)">Login</button>
+    </div>
+
+    <div>Two Pie Chart</div>
+    <div>add new stock and count</div>
+    <div>Stock List</div>
+</div>
