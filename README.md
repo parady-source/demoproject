@@ -4,6 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 You can use the link below as demonstration : 
 http://stackblitz.com/github/parady-source/demoproject
+https://wmaionngq.github.stackblitz.io
 
 ## Development server
 
