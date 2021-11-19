@@ -22,8 +22,7 @@ export class InvestmentComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   GetUserId(e: any) {
     this.cookieUserId = e.value;
