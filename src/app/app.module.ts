@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { NavigatorComponent } from './Navigator/navigator.component';
 import { IndexComponent } from './Index/index.component';
 import { AqiComponent } from './Weather/aqi.component';
+import { UltravioletComponent } from './Weather/ultraviolet.component';
 
 import { GeneralService } from './general.service';
 
@@ -45,6 +46,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 const appRoutes: Routes = [
   { path: 'index', component: IndexComponent },
   { path: 'aqi', component: AqiComponent },
+  { path: 'ultraviolet', component: UltravioletComponent },
 ];
 
 @NgModule({
@@ -53,6 +55,7 @@ const appRoutes: Routes = [
     NavigatorComponent,
     AqiComponent,
     IndexComponent,
+    UltravioletComponent,
   ],
   imports: [
     BrowserModule,

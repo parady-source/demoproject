@@ -1,0 +1,20 @@
+<table>
+    <thead>
+        <th *ngFor="let column of headers">
+            {{column}}
+        </th>
+    </thead>
+    <tbody *ngFor="let item of items">
+        <tr>
+            <td>{{item.County}}</td>
+            <td>{{item.SiteName}}</td>
+            <td>{{item.PublishAgency}}</td>
+            <td>{{item.UVI}}</td>
+            <td>{{item.PublishTime}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+
+</script>
