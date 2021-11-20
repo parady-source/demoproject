@@ -20,6 +20,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { GeneralService } from '../general.service';
 import { General } from '../general';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-aqi',
@@ -56,19 +57,39 @@ export class AqiComponent implements OnInit {
         //response.fields.forEach((element: any) => console.log(element.id));
         this.AQIRecordDataSource.data = response.records;
 
+        //3.繪製Chart
+        this.barChartOptions = { responsive: true };
+        this.barChartType = 'bar';
+        this.barChartLegend = true;
+
+        const County: string[] = [];
+        response.records.forEach((element: { County: string; }) => {
+          if (!County.includes(element.County)) {
+            County.push(element.County);
+          }
+        });
+
+        const AQIxs: number[] = [];
+        County.forEach(element => {
+          var AQIx = 10;
+          response.records.forEach((record: { County: string; AQI: string; }) => {
+            while (record.County == element) {
+              AQIx += Number('10');
+              break;
+            }
+          });
+          AQIxs.push(AQIx);
+        });
+
+        this.barChartLabels = County;
+        this.barChartData = [
+          { data: AQIxs, label: 'AVG API' },
+          { data: AQIxs, label: 'AVG Status' }
+        ];
+
       },
       (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
     );
-
-    this.barChartOptions = { responsive: true };
-    this.barChartType = 'bar';
-    this.barChartLegend = true;
-
-    this.barChartLabels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-    this.barChartData = [
-      { data: [65, 59, 80, 81, 56, 55, 400], label: 'Series A' },
-      { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
-    ];
   }
 
   @ViewChild(MatSort)

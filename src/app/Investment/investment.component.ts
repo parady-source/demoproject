@@ -32,6 +32,7 @@ export class InvestmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetRecord();
+    //this.SetRecord();
   }
 
   GetUserId(e: any) {
@@ -43,16 +44,13 @@ export class InvestmentComponent implements OnInit {
     this.showInputUserId = false;
   }
 
+  SetRecord() {
+    this.GeneralService.addInvestmentRecord("xx", "2999", 100, 100);
+  }
+
   GetRecord() {
     this.GeneralService.getInvestmentRecord().subscribe(
-      (response: any) => {
-
-        //依序列出
-        //response.split(',').forEach((element: any) => console.log(element));
-        console.log(response);
-
-
-      },
+      response => response,
       (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
     );
   }

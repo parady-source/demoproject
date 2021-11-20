@@ -27,6 +27,7 @@
     "ng2-charts": "^2.2.3",
     "ngx-cookie-service": "^12.0.3",
     "rxjs": "~6.6.0",
+    "tabletop": "^1.6.3",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
   },

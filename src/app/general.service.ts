@@ -22,7 +22,7 @@ export class GeneralService {
   url = 'https://data.epa.gov.tw/api';
   apikey = '0874be33-c993-4def-8726-6cc53c1c3684';
 
-  InvestmentReadUrl = 'https://script.google.com/macros/s/AKfycbzLZ4DPB2PR-GAFvOwzblqaidWR48WGq3l7aMw0lbjFWF6TWgbemOejXIGJeaDWGihc/exec';
+  InvestmentReadUrl = 'https://script.google.com/macros/s/AKfycbxblGdJijPOPCCUfQocGIqGISL6nJEOcHkTiuzehIGNzG2RWhDppEWvNjsU5QZdvZ0J/exec';
   InvestmentCreateUrl = 'https://script.google.com/macros/s/AKfycbykwleSn1wkNINOYoxhBhEZuwQPw-FgMBUm5FQ0oqY7BBaOt0dWkx8aTc2BmdMzkpbq/exec?';
 
   constructor(private http: HttpClient) { }
@@ -44,11 +44,14 @@ export class GeneralService {
     const URL = this.InvestmentReadUrl;
 
     let headers = new HttpHeaders({
-      'Content-Type': 'json/text'
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Special-Request-Header',
+      'Access-Control-Allow-Credentials': 'true',
+      'Access-Control-Max-Age': '86400'
     });
-    let options = {
-      headers
-    };
+
+    let options = { headers };
 
     return this.http.get<any>(URL, options);
   }
@@ -56,14 +59,22 @@ export class GeneralService {
   public addInvestmentRecord(userid: string, stockid: string, count: number, price: number): Observable<boolean> {
     const URL = this.InvestmentCreateUrl;
 
-    let body = JSON.stringify({ 'userid': userid, 'stockid': stockid, 'count': count, 'price': price });
+    let body = { 'userid': userid, 'stockid': stockid, 'count': count, 'price': price };
 
     let headers = new HttpHeaders({
       'Content-Type': 'text/json',
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': 'https://script.google.com',
       'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Special-Request-Header',
+      'Access-Control-Allow-Credentials': 'true',
       'Access-Control-Max-Age': '86400'
     });
+
+    headers.set('Access-Control-Allow-Origin', 'https://script.google.com');
+    headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    headers.set('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    headers.set('Access-Control-Allow-Credentials', 'true');
+
     let options = {
       headers
     };
