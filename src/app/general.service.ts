@@ -22,7 +22,7 @@ export class GeneralService {
   url = 'https://data.epa.gov.tw/api';
   apikey = '0874be33-c993-4def-8726-6cc53c1c3684';
 
-  InvestmentReadUrl = 'https://script.google.com/macros/s/AKfycbxblGdJijPOPCCUfQocGIqGISL6nJEOcHkTiuzehIGNzG2RWhDppEWvNjsU5QZdvZ0J/exec';
+  InvestmentReadUrl = 'https://script.google.com/macros/s/AKfycbzBfuHbWUFnXyBAlJpfSUspskVWUxQtPJzr_tg4PIWbhZPenyTZ-NfNevfUS3EffZUo/exec';
   InvestmentCreateUrl = 'https://script.google.com/macros/s/AKfycbykwleSn1wkNINOYoxhBhEZuwQPw-FgMBUm5FQ0oqY7BBaOt0dWkx8aTc2BmdMzkpbq/exec?';
 
   constructor(private http: HttpClient) { }
@@ -41,6 +41,20 @@ export class GeneralService {
 
   public getInvestmentRecord(
   ): Observable<any> {
+
+    // fetch(this.InvestmentReadUrl, {
+    //   method: 'GET',
+    //   headers: {
+    //     'Content-Type': 'text/plain;charset=utf-8',
+    //   }
+    // }).then(response => {
+    //   console.log("success:", response);
+    //   return response;
+    // }).catch(err => {
+    //   console.log("Error:" + err);
+    //   return err;
+    // });
+
     const URL = this.InvestmentReadUrl;
 
     let headers = new HttpHeaders({
@@ -54,6 +68,7 @@ export class GeneralService {
     let options = { headers };
 
     return this.http.get<any>(URL, options);
+
   }
 
   public addInvestmentRecord(userid: string, stockid: string, count: number, price: number): Observable<boolean> {

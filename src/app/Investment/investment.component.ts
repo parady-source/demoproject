@@ -50,7 +50,9 @@ export class InvestmentComponent implements OnInit {
 
   GetRecord() {
     this.GeneralService.getInvestmentRecord().subscribe(
-      response => response,
+      (response: any) => {
+        console.log(response);
+      },
       (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
     );
   }
