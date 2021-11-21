@@ -49,12 +49,22 @@ export class InvestmentComponent implements OnInit {
   }
 
   GetRecord() {
-    this.GeneralService.getInvestmentRecord().subscribe(
-      (response: any) => {
-        console.log(response);
-      },
-      (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
-    );
+    // this.GeneralService.getInvestmentRecord().subscribe((data: any) => {
+    //   console.log(data);
+    // });
+
+    this.GeneralService.getInvestmentRecord().subscribe((jsonCallback) => {
+      console.log(jsonCallback);
+    }, (error) => {
+      console.log(error);
+    }, () => { });
+
+    // this.GeneralService.getInvestmentRecord().subscribe(
+    //   (response: any) => {
+    //     console.log(response);
+    //   },
+    //   (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
+    // );
   }
 
 }
