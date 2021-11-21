@@ -44,25 +44,16 @@ export class GeneralService {
     const URL = this.InvestmentReadUrl;
 
     let headers = new HttpHeaders({
-      // 'Access-Control-Allow-Origin': '*',
-      // 'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
-      // 'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Special-Request-Header',
-      // 'Access-Control-Allow-Credentials': 'true',
-      // 'Accept-Language': 'da, en-GB;q=0.8, en;q=0.7'
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Special-Request-Header',
+      'Access-Control-Allow-Credentials': 'true',
     });
 
-    // headers.set('Access-Control-Allow-Origin', '*');
-    // headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    // headers.set('Access-Control-Allow-Headers', 'X-Requested-With, content-type, Special-Request-Header');
-    // headers.set('Access-Control-Allow-Credentials', 'true');
-    // headers.set('Accept-Language', 'da, en-GB;q=0.8, en;q=0.7');
-
     headers.set('Access-Control-Allow-Origin', '*');
-    headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, POST, DELETE, OPTIONS');
-    headers.set('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, Authorization, X-Request-With');
-    headers.set('Access-Control-Max-Age', '86400');
-    headers.set('Access-Control-Expose-Headers', 'Content-Length, X-JSON');
-    headers.set('Content-Type', 'application/json');
+    headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    headers.set('Access-Control-Allow-Headers', 'X-Requested-With, content-type, Special-Request-Header');
+    headers.set('Access-Control-Allow-Credentials', 'true');
 
     let options = { headers };
 
