@@ -31,7 +31,7 @@ export class InvestmentComponent implements OnInit {
   // constructor() { }
 
   ngOnInit(): void {
-    this.GetRecord();
+    //this.GetRecord();
     //this.SetRecord();
   }
 
@@ -53,11 +53,11 @@ export class InvestmentComponent implements OnInit {
     //   console.log(data);
     // });
 
-    this.GeneralService.getInvestmentRecord().subscribe((jsonCallback) => {
-      console.log(jsonCallback);
-    }, (error) => {
-      console.log(error);
-    }, () => { });
+    // this.GeneralService.getInvestmentRecord().subscribe((jsonCallback) => {
+    //   console.log(jsonCallback);
+    // }, (error) => {
+    //   console.log(error);
+    // }, () => { });
 
     // this.GeneralService.getInvestmentRecord().subscribe(
     //   (response: any) => {
