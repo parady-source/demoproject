@@ -37,5 +37,5 @@ export class NavigatorComponent {
   constructor(private breakpointObserver: BreakpointObserver) { }
 
   public SideNavTitle = 'Demo Project';
-  public NavTitle = 'Welcome to Demo Project';
+  public NavTitle = 'Demo Project';
 }

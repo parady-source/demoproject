@@ -1,16 +1,28 @@
 <mat-sidenav-container fullscreen>
     <mat-sidenav mode="side" #sidenav opened position="start" mode="side">
-        <div (click)="sidenav.toggle()">
+        <!-- <div (click)="sidenav.toggle()">
             <button mat-button class="full-width">
                 <mat-icon>computer</mat-icon>
                 <H2>{{ SideNavTitle }}</H2>
             </button>
+        </div> -->
+        <div>
+            <button mat-button class="full-width">
+                <!-- <mat-icon>computer</mat-icon>
+                <H2>{{ SideNavTitle }}</H2> -->
+                <a mat-list-item routerLink="/index" routerLinkActive="active"
+                    style="color:whitesmoke;text-decoration: none;">
+                    <mat-icon>computer</mat-icon>
+                    <H2>{{ SideNavTitle }}</H2>
+                </a>
+            </button>
         </div>
+
         <mat-nav-list>
-            <a mat-list-item routerLink="/index" outerLinkActive="active" style="color:white">
+            <!-- <a mat-list-item routerLink="/index" outerLinkActive="active" style="color:white">
                 <mat-icon style="vertical-align: text-bottom;">home</mat-icon>
                 <span class="full-width">Home</span>
-            </a>
+            </a> -->
 
             <mat-list-item (click)="showWeatherSubmenu = !showWeatherSubmenu" class="parent" style="color:whitesmoke">
                 <span class="full-width" *ngIf="isWeatherExpanded || isWeatherShowing">Weather</span>
