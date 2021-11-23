@@ -13,6 +13,7 @@ import { Sort } from '@angular/material/sort';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
+import { MatButton } from '@angular/material/button';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { observable, Observable } from 'rxjs';
@@ -22,10 +23,11 @@ import { GeneralService } from '../general.service';
 import { General } from '../general';
 import { element } from 'protractor';
 
-import { ChartDataSets, ChartOptions } from 'chart.js';
+import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { NumberValueAccessor } from '@angular/forms';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-aqi',
@@ -33,23 +35,43 @@ import { NumberValueAccessor } from '@angular/forms';
   styleUrls: ['./aqi.component.css']
 })
 export class AqiComponent implements OnInit {
+
+  barChartOptions: ChartOptions = {
+    responsive: true,
+  };
+  barChartLabels: Label[] = [''];
+  barChartType: ChartType = 'bar';
+  barChartLegend = true;
+  barChartPlugins = [];
+  barChartData: ChartDataSets[] = [{ data: [0], label: '' }];
+
   public item: Array<any> = new Array<any>();
 
   //'SiteId', 'SO2', 'CO', 'O3', 'NO2', 'NOx', 'NO', 
-  public displayedColumns: string[] = ['County', 'SiteName', 'AQI', 'Pollutant', 'Status', 'PM10', 'PM2.5', 'PublishTime'];
+  public displayedColumns: string[] = ['County', 'SiteName', 'AQI', 'Pollutant', 'Status', 'PM2.5', 'PM10', 'PublishTime'];
   public AQIRecordDataSource = new MatTableDataSource<any>();
 
-  //1. Rank Best Top 3 (Donut Chart)
+  //1. Rank
+  public Top1: number = 0;
+  public Top1_County: string = '';
+  public Top2: number = 0;
+  public Top2_County: string = '';
+  public Top3: number = 0;
+  public Top3_County: string = '';
+  public Last1: number = 0;
+  public Last1_County: string = '';
+  public Last2: number = 0;
+  public Last2_County: string = '';
+  public Last3: number = 0;
+  public Last3_County: string = '';
 
-  //2. Rank Worst Top 3 (Donut Chart)
+  //2. City List (Bar Chart)
+  // public barChartData: ChartDataSets[] = [];
+  // public barChartLabels: Label[] = [];
 
-  //3. City List (Bar Chart)
-  public barChartData: ChartDataSets[] = [];
-  public barChartLabels: Label[] = [];
-
-  public barChartOptions: any;
-  public barChartType: any = 'bar';
-  public barChartLegend: any = true;
+  // public barChartOptions: any;
+  // public barChartType: any = 'bar';
+  // public barChartLegend: any = true;
 
   constructor(private GeneralService: GeneralService) { }
 
@@ -69,15 +91,8 @@ export class AqiComponent implements OnInit {
         //response.fields.forEach((element: any) => console.log(element.id));
         this.AQIRecordDataSource.data = response.records;
 
-        //console.log(response.records[0]['County']);
-        //console.log(this.AQIRecordDataSource.data);
-
         //3.繪製Chart
-        //3-1 Best Rank
-
-        //3-2 Worst Rank
-
-        //3-3 City List
+        //3-1 City List
         //Data
         let County_Array: string[] = [];
         for (let i = 0; i < response.records.length; i++) {
@@ -87,97 +102,146 @@ export class AqiComponent implements OnInit {
         County_Array = [...setType];
 
         let Count_AQI: number = 0;
-        let Count_O3: number = 0;
+
         let Count_PM25: number = 0;
         let Count_PM10: number = 0;
+        let Count_O3: number = 0;
+        let Count_SO2: number = 0;
+        let Count_NO2: number = 0;
 
         let AQI_Array: number[] = [];
-        let O3_Array: number[] = [];
+
         let PM25_Array: number[] = [];
         let PM10_Array: number[] = [];
+        let O3_Array: number[] = [];
+        let SO2_Array: number[] = [];
+        let NO2_Array: number[] = [];
 
         let Color_1: string[] = [];
         let Color_2: string[] = [];
         let Color_3: string[] = [];
         let Color_4: string[] = [];
+        let Color_5: string[] = [];
 
         for (var i = 0; i < County_Array.length; i++) {
           Color_1.push('#FF5F7E');
           Color_2.push('#FE856C');
           Color_3.push('#FCAB5A');
           Color_4.push('#FBD148');
+          Color_5.push('#FCE372');
         }
+
+        let max: number = 0;
 
         for (let county of County_Array) {
           var temp_Array = response.records.filter((x: { County: string; }) => x.County == county);
 
           if (temp_Array.length < 1) {
-            Count_AQI = 0; Count_O3 = 0; Count_PM25 = 0; Count_PM10 = 0;
+            Count_AQI = 0; Count_PM25 = 0; Count_PM10 = 0; Count_O3 = 0; Count_SO2 = 0; Count_NO2 = 0;
           }
           else {
-            Count_AQI = temp_Array.reduce((sum: any, current: { AQI: any; }) => sum + Number(current.AQI), 0) / temp_Array.length;
-            Count_O3 = temp_Array.reduce((sum: any, current: { O3: any; }) => sum + Number(current.O3), 0) / temp_Array.length;
-            Count_PM25 = temp_Array.reduce((sum: any, current: { 'PM2.5': any; }) => sum + Number(current['PM2.5']), 0) / temp_Array.length;
-            Count_PM10 = temp_Array.reduce((sum: any, current: { 'PM10': any; }) => sum + Number(current.PM10), 0) / temp_Array.length;
+            Count_AQI = temp_Array.reduce((sum: number, current: { AQI: string; }) => sum + Number(current.AQI), 0) / temp_Array.length;
+            Count_PM25 = temp_Array.reduce((sum: number, current: { PM25: string; }) => sum + Number(current.PM25), 0) / temp_Array.length;
+            Count_PM10 = temp_Array.reduce((sum: number, current: { PM10: string; }) => sum + Number(current.PM10), 0) / temp_Array.length;
+            Count_O3 = temp_Array.reduce((sum: number, current: { O3: string; }) => sum + Number(current.O3), 0) / temp_Array.length;
+            Count_SO2 = temp_Array.reduce((sum: number, current: { SO2: string; }) => sum + Number(current.SO2), 0) / temp_Array.length;
+            Count_NO2 = temp_Array.reduce((sum: number, current: { NO2: string; }) => sum + Number(current.NO2), 0) / temp_Array.length;
           }
 
           AQI_Array.push(Number(Count_AQI.toFixed(2)));
-          O3_Array.push(Number(Count_O3.toFixed(2)));
           PM25_Array.push(Number(Count_PM25.toFixed(2)));
           PM10_Array.push(Number(Count_PM10.toFixed(2)));
+          O3_Array.push(Number(Count_O3.toFixed(2)));
+          SO2_Array.push(Number(Count_SO2.toFixed(2)));
+          NO2_Array.push(Number(Count_NO2.toFixed(2)));
+
+          if (Number(Count_PM25.toFixed(2)) > max) { max = Number(Count_PM25.toFixed(2)); }
+          if (Number(Count_PM10.toFixed(2)) > max) { max = Number(Count_PM10.toFixed(2)); }
+          if (Number(Count_O3.toFixed(2)) > max) { max = Number(Count_O3.toFixed(2)); }
+          if (Number(Count_SO2.toFixed(2)) > max) { max = Number(Count_SO2.toFixed(2)); }
+          if (Number(Count_NO2.toFixed(2)) > max) { max = Number(Count_NO2.toFixed(2)); }
         }
+
+        //Rank
+        let index = 0;
+        let tempAQI_Array: number[] = AQI_Array;
+        let tempCounty_Array: string[] = County_Array;
+
+        //Best
+        index = tempAQI_Array.indexOf(Math.min(...tempAQI_Array));
+        this.Top1 = Number(tempAQI_Array[index].toFixed(0));
+        this.Top1_County = tempCounty_Array[index];
+        tempAQI_Array.splice(index, 1);
+        tempCounty_Array.splice(index, 1);
+
+        index = tempAQI_Array.indexOf(Math.min(...tempAQI_Array));
+        this.Top2 = Number(tempAQI_Array[index].toFixed(0));
+        this.Top2_County = tempCounty_Array[index];
+        tempAQI_Array.splice(index, 1);
+        tempCounty_Array.splice(index, 1);
+
+        index = tempAQI_Array.indexOf(Math.min(...tempAQI_Array));
+        this.Top3 = Number(tempAQI_Array[index].toFixed(0));
+        this.Top3_County = tempCounty_Array[index];
+        tempAQI_Array.splice(index, 1);
+        tempCounty_Array.splice(index, 1);
+
+        //Worst
+        index = tempAQI_Array.indexOf(Math.max(...tempAQI_Array));
+        this.Last1 = Number(tempAQI_Array[index].toFixed(0));
+        this.Last1_County = tempCounty_Array[index];
+        tempAQI_Array.splice(index, 1);
+        tempCounty_Array.splice(index, 1);
+
+        index = tempAQI_Array.indexOf(Math.max(...tempAQI_Array));
+        this.Last2 = Number(tempAQI_Array[index].toFixed(0));
+        this.Last2_County = tempCounty_Array[index];
+        tempAQI_Array.splice(index, 1);
+        tempCounty_Array.splice(index, 1);
+
+        index = tempAQI_Array.indexOf(Math.max(...tempAQI_Array));
+        this.Last3 = Number(tempAQI_Array[index].toFixed(0));
+        this.Last3_County = tempCounty_Array[index];
+        tempAQI_Array.splice(index, 1);
+        tempCounty_Array.splice(index, 1);
+        //Rank End
+
+        max = Number((max / 10).toFixed(0)) * 10;
 
         this.barChartData = [
           {
-            label: 'AQI',
-            data: AQI_Array,
-            borderColor: Color_1,
-            hoverBorderColor: Color_1,
-            backgroundColor: Color_1,
-            hoverBackgroundColor: Color_1,
-            pointBorderColor: Color_1,
-            pointBackgroundColor: Color_1,
-            pointHoverBackgroundColor: Color_1,
-            pointHoverBorderColor: Color_1,
-            borderWidth: 1
-          },
-          {
-            label: 'O3',
-            data: O3_Array,
-            borderColor: Color_2,
-            hoverBorderColor: Color_2,
-            backgroundColor: Color_2,
-            hoverBackgroundColor: Color_2,
-            pointBorderColor: Color_2,
-            pointBackgroundColor: Color_2,
-            pointHoverBackgroundColor: Color_2,
-            pointHoverBorderColor: Color_2,
-            borderWidth: 1
-          },
-          {
             label: 'PM2.5',
             data: PM25_Array,
-            borderColor: Color_3,
-            hoverBorderColor: Color_3,
-            backgroundColor: Color_3,
-            hoverBackgroundColor: Color_3,
-            pointBorderColor: Color_3,
-            pointBackgroundColor: Color_3,
-            pointHoverBackgroundColor: Color_3,
-            pointHoverBorderColor: Color_3,
+            backgroundColor: Color_1,
+            borderColor: "#ccc",
             borderWidth: 1
           },
           {
             label: 'PM10',
             data: PM10_Array,
-            borderColor: Color_4,
-            hoverBorderColor: Color_4,
+            backgroundColor: Color_2,
+            borderColor: "#ccc",
+            borderWidth: 1
+          },
+          {
+            label: 'O3',
+            data: O3_Array,
+            backgroundColor: Color_3,
+            borderColor: "#ccc",
+            borderWidth: 1
+          },
+          {
+            label: 'SO2',
+            data: SO2_Array,
             backgroundColor: Color_4,
-            hoverBackgroundColor: Color_4,
-            pointBorderColor: Color_4,
-            pointBackgroundColor: Color_4,
-            pointHoverBackgroundColor: Color_4,
-            pointHoverBorderColor: Color_4,
+            borderColor: "#ccc",
+            borderWidth: 1
+          },
+          {
+            label: 'NO2',
+            data: NO2_Array,
+            backgroundColor: Color_5,
+            borderColor: "#ccc",
             borderWidth: 1
           },
         ];
@@ -190,7 +254,7 @@ export class AqiComponent implements OnInit {
           responsive: true,
           scales: {
             yAxes: [{
-              ticks: { beginAtZero: true, stepSize: 10, min: 0, max: 100 }
+              ticks: { beginAtZero: true, stepSize: 10, min: 0, max: max }
             }]
           }
         };

@@ -80,18 +80,18 @@
                 <mat-cell *matCellDef="let row"> {{ row.O3 }} </mat-cell>
             </ng-container> -->
 
-                <ng-container matColumnDef="PM10">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>
-                        懸浮微粒(μg/m3)
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row.PM10 }} </mat-cell>
-                </ng-container>
-
                 <ng-container matColumnDef="PM2.5">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>
                         細懸浮微粒(μg/m3)
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> {{ row["PM2.5"] }} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="PM10">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        懸浮微粒(μg/m3)
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row.PM10 }} </mat-cell>
                 </ng-container>
 
                 <!-- <ng-container matColumnDef="NO2">
@@ -134,9 +134,127 @@
         <ng-template mat-tab-label>
             <h3><strong>AQI<span style="padding-left: 5px"></span></strong> Chart</h3>
         </ng-template>
+
+        <div style="margin: auto;width: 80%;padding: 10px;">
+            <mat-card style="background-color: rgba(255,255,255,0.2);">
+                <mat-card-title>最佳空氣品質</mat-card-title>
+                <mat-card-subtitle>
+                    <div class="flex-container">
+                        <div class="flex-item"> AQI {{Top1}}
+                            <span style="padding-left: 10px;"> {{Top1_County}} </span>
+                        </div>
+                        <div class="flex-item"> AQI {{Top2}}
+                            <span style="padding-left: 10px;"> {{Top2_County}} </span>
+                        </div>
+                        <div class="flex-item"> AQI {{Top3}}
+                            <span style="padding-left: 10px;"> {{Top3_County}} </span>
+                        </div>
+                    </div>
+                </mat-card-subtitle>
+            </mat-card>
+        </div>
+        <div style="margin: auto;width: 80%;padding: 10px;">
+            <mat-card style="background-color: rgba(255,255,255,0.2);">
+                <mat-card-title>最差空氣品質</mat-card-title>
+                <mat-card-subtitle>
+                    <div class="flex-container">
+                        <div class="flex-item"> AQI {{Last1}}
+                            <span style="padding-left: 10px;"> {{Last1_County}} </span>
+                        </div>
+                        <div class="flex-item"> AQI {{Last2}}
+                            <span style="padding-left: 10px;"> {{Last2_County}} </span>
+                        </div>
+                        <div class="flex-item"> AQI {{Last3}}
+                            <span style="padding-left: 10px;"> {{Last3_County}} </span>
+                        </div>
+                    </div>
+                </mat-card-subtitle>
+            </mat-card>
+        </div>
+
+        <div style="margin: auto;width: 80%;padding: 10px;">
+            <mat-card style="background-color: rgba(255,255,255,0.2);">
+                <mat-card-title>空氣品質指標</mat-card-title>
+
+                <div class="flex-container">
+                    <div class="flex-item" style="width: 4%;">&nbsp;</div>
+                    <div class="flex-item" style="background-color: greenyellow;width: 16%;">&nbsp;</div>
+                    <div class="flex-item" style="background-color: yellow;width: 16%;">&nbsp;</div>
+                    <div class="flex-item" style="background-color: orange;width: 16%;">&nbsp;</div>
+                    <div class="flex-item" style="background-color: orangered;width: 16%;">&nbsp;</div>
+                    <div class="flex-item" style="background-color: purple;width: 16%;">&nbsp;</div>
+                    <div class="flex-item" style="background-color: brown;width: 16%;">&nbsp;</div>
+                </div>
+                <div class="flex-container">
+                    <div class="flex-item" style="width: 4%;text-align: left;">&nbsp;</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;"><b>良好</b></div>
+                    <div class="flex-item" style="width: 16%;text-align: center;"><b>普通</b></div>
+                    <div class="flex-item" style="width: 16%;text-align: center;"><b>對敏感族群不健康</b></div>
+                    <div class="flex-item" style="width: 16%;text-align: center;"><b>對所有族群不健康</b></div>
+                    <div class="flex-item" style="width: 16%;text-align: center;"><b>非常不健康</b></div>
+                    <div class="flex-item" style="width: 16%;text-align: center;"><b>危害</b></div>
+                </div>
+                <div class="flex-container">
+                    <div class="flex-item" style="width: 4%;text-align: left;">AQI</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">0-50</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">51-100</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">101-150</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">151-200</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">201-300</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">301-500</div>
+                </div>
+                <div class="flex-container">
+                    <div class="flex-item" style="width: 4%;text-align: left;">PM2.5</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">0-15.4</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">15.5-35.4</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">35.5-54.4</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">54.5-150.4</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">150.5-250.4</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">250.5-500.4</div>
+                </div>
+                <div class="flex-container">
+                    <div class="flex-item" style="width: 4%;text-align: left;">PM10</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">0-54</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">55-125</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">126-254</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">255-354</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">355-424</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">425-604</div>
+                </div>
+                <div class="flex-container">
+                    <div class="flex-item" style="width: 4%;text-align: left;">O<sub>3</sub></div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">---</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">---</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">125-164</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">165-204</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">205-404</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">405-604</div>
+                </div>
+                <div class="flex-container">
+                    <div class="flex-item" style="width: 4%;text-align: left;">SO<sub>2</sub></div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">0-20</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">21-75</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">76-185</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">186-304</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">305-604</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">605-1004</div>
+                </div>
+                <div class="flex-container">
+                    <div class="flex-item" style="width: 4%;text-align: left;">NO<sub>2</sub></div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">0-30</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">31-100</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">101-360</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">361-649</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">650-1249</div>
+                    <div class="flex-item" style="width: 16%;text-align: center;">1250-2049</div>
+                </div>
+
+            </mat-card>
+        </div>
+
         <div style="margin: auto;width: 80%;padding: 10px;">
             <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-                [legend]="barChartLegend" [chartType]="barChartType">
+                [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
             </canvas>
         </div>
     </mat-tab>
