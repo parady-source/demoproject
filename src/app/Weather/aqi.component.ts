@@ -1,33 +1,19 @@
 import {
   Component,
-  EventEmitter,
   OnInit,
-  Output,
-  Injectable,
-  AfterViewInit,
-  Input,
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { Sort } from '@angular/material/sort';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatTableModule } from '@angular/material/table';
-import { MatButton } from '@angular/material/button';
 
 import { MatPaginator } from '@angular/material/paginator';
-import { observable, Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { GeneralService } from '../general.service';
-import { General } from '../general';
-import { element } from 'protractor';
 
 import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-import { NumberValueAccessor } from '@angular/forms';
-import { Console } from 'console';
+import { Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-aqi',

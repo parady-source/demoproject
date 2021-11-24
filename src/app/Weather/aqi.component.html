@@ -136,44 +136,65 @@
         </ng-template>
 
         <div style="margin: auto;width: 80%;padding: 10px;">
-            <mat-card style="background-color: rgba(255,255,255,0.2);">
+            <mat-card style="background-color: rgba(255,255,255,0.8);">
                 <mat-card-title>最佳空氣品質</mat-card-title>
-                <mat-card-subtitle>
-                    <div class="flex-container">
-                        <div class="flex-item"> AQI {{Top1}}
-                            <span style="padding-left: 10px;"> {{Top1_County}} </span>
-                        </div>
-                        <div class="flex-item"> AQI {{Top2}}
-                            <span style="padding-left: 10px;"> {{Top2_County}} </span>
-                        </div>
-                        <div class="flex-item"> AQI {{Top3}}
-                            <span style="padding-left: 10px;"> {{Top3_County}} </span>
+                <div class="flex-container" style="height:max-content;">
+                    <div class="flex-item">
+                        <div class="donut-container" style="background: #7FE67F;">
+                            <div class="donut-inner">
+                                <div class="donut-label">{{Top1_County}} {{Top1}}</div>
+                            </div>
                         </div>
                     </div>
-                </mat-card-subtitle>
-            </mat-card>
-        </div>
-        <div style="margin: auto;width: 80%;padding: 10px;">
-            <mat-card style="background-color: rgba(255,255,255,0.2);">
-                <mat-card-title>最差空氣品質</mat-card-title>
-                <mat-card-subtitle>
-                    <div class="flex-container">
-                        <div class="flex-item"> AQI {{Last1}}
-                            <span style="padding-left: 10px;"> {{Last1_County}} </span>
-                        </div>
-                        <div class="flex-item"> AQI {{Last2}}
-                            <span style="padding-left: 10px;"> {{Last2_County}} </span>
-                        </div>
-                        <div class="flex-item"> AQI {{Last3}}
-                            <span style="padding-left: 10px;"> {{Last3_County}} </span>
+                    <div class="flex-item">
+                        <div class="donut-container" style="background:#80D380;">
+                            <div class="donut-inner">
+                                <div class="donut-label">{{Top2_County}} {{Top2}}</div>
+                            </div>
                         </div>
                     </div>
-                </mat-card-subtitle>
+                    <div class="flex-item">
+                        <div class="donut-container" style="background:#8ED88E;">
+                            <div class="donut-inner">
+                                <div class="donut-label">{{Top3_County}} {{Top3}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </mat-card>
         </div>
 
         <div style="margin: auto;width: 80%;padding: 10px;">
-            <mat-card style="background-color: rgba(255,255,255,0.2);">
+            <mat-card style="background-color: rgba(255,255,255,0.8);">
+                <mat-card-title>最差空氣品質</mat-card-title>
+                <div class="flex-container" style="height:max-content;">
+                    <div class="flex-item">
+                        <div class="donut-container" style="background: #FD7F20;">
+                            <div class="donut-inner">
+                                <div class="donut-label">{{Last1_County}} {{Last1}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-item">
+                        <div class="donut-container" style="background:#E3721C;">
+                            <div class="donut-inner">
+                                <div class="donut-label">{{Last2_County}} {{Last2}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-item">
+                        <div class="donut-container" style="background:#CA6519;">
+                            <div class="donut-inner">
+                                <div class="donut-label">{{Last3_County}} {{Last3}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+        <div style="margin: auto;width: 80%;padding: 10px;">
+            <mat-card style="background-color: rgba(255,255,255,0.8);">
                 <mat-card-title>空氣品質指標</mat-card-title>
 
                 <div class="flex-container">
@@ -252,10 +273,15 @@
             </mat-card>
         </div>
 
+
         <div style="margin: auto;width: 80%;padding: 10px;">
-            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-                [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
-            </canvas>
+            <mat-card style="background-color: rgba(255,255,255,0.8);">
+                <mat-card-title></mat-card-title>
+                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                    [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+                </canvas>
+            </mat-card>
         </div>
+
     </mat-tab>
 </mat-tab-group>

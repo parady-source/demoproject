@@ -1,4 +1,4 @@
-table {
+/* table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
@@ -23,4 +23,19 @@ table th {
     text-align: left;
     background-color: #4CAF50;
     color: white;
+} */
+
+.flex-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    padding: 0% 10%;
+    margin: 0;
+    list-style: none;
+    height: 25px;
+}
+
+.flex-item {
+    font-weight: 400;
+    font-family: 'Helvetica Neue', sans-serif;
 }

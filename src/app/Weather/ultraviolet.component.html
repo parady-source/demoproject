@@ -1,4 +1,4 @@
-<table>
+<!-- <table>
     <thead>
         <th *ngFor="let column of headers">
             {{column}}
@@ -13,8 +13,81 @@
             <td>{{item.PublishTime}}</td>
         </tr>
     </tbody>
-</table>
+</table> -->
 
-<script>
+<div style="margin: auto;width: 80%;padding: 10px;">
+    <mat-card style="background-color: rgba(255,255,255,0.8);">
+        <mat-card-title>紫外線指標</mat-card-title>
+        <div class="flex-container">
+            <div class="flex-item" style="background-color: greenyellow;width: 20%;">&nbsp;</div>
+            <div class="flex-item" style="background-color: yellow;width: 20%;">&nbsp;</div>
+            <div class="flex-item" style="background-color: orange;width: 20%;">&nbsp;</div>
+            <div class="flex-item" style="background-color: orangered;width: 20%;">&nbsp;</div>
+            <div class="flex-item" style="background-color: purple;width: 20%;">&nbsp;</div>
 
-</script>
+        </div>
+        <div class="flex-container">
+            <div class="flex-item" style="width: 20%;text-align: center;"><b>低量級</b></div>
+            <div class="flex-item" style="width: 20%;text-align: center;"><b>中量級</b></div>
+            <div class="flex-item" style="width: 20%;text-align: center;"><b>高量級</b></div>
+            <div class="flex-item" style="width: 20%;text-align: center;"><b>過量級</b></div>
+            <div class="flex-item" style="width: 20%;text-align: center;"><b>危險級</b></div>
+        </div>
+        <div class="flex-container">
+            <div class="flex-item" style="width: 20%;text-align: center;">0-2</div>
+            <div class="flex-item" style="width: 20%;text-align: center;">3-5</div>
+            <div class="flex-item" style="width: 20%;text-align: center;">6-7</div>
+            <div class="flex-item" style="width: 20%;text-align: center;">8-10</div>
+            <div class="flex-item" style="width: 20%;text-align: center;">11+</div>
+        </div>
+
+        <div style="margin: auto;width: 80%;padding: 10px;">
+            <mat-card style="background-color: rgba(255,255,255,0.8);border: 4px purple solid;">
+                <div class="flex-container" style="height:max-content;">
+                    <div class="flex-item">
+                        <div style="text-align: left;"><b>危險級</b></div>
+                    </div>
+                </div>
+                <div class="flex-container" style="height:max-content;">
+                    <div class="flex-item" style="border: 2px silver solid;" *ngFor="let item of Array_5">
+                        <div style="text-align: center;">{{item.County}}</div>
+                        <div style="text-align: center;">{{item.SiteName}}</div>
+                        <div style="text-align: center;">{{item.UVI}}</div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+        <div style="margin: auto;width: 80%;padding: 10px;">
+            <mat-card style="background-color: rgba(255,255,255,0.8);border: 4px orangered solid;">
+                <div class="flex-container" style="height:max-content;">
+                    <div class="flex-item">
+                        <div style="text-align: left;"><b>過量級</b></div>
+                    </div>
+                </div>
+                <div class="flex-container" style="height:max-content;">
+                    <div class="flex-item" style="border: 2px silver solid;" *ngFor="let item of Array_4">
+                        <div style="text-align: center;">{{item.County}}</div>
+                        <div style="text-align: center;">{{item.SiteName}}</div>
+                        <div style="text-align: center;">{{item.UVI}}</div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+        <div style="margin: auto;width: 80%;padding: 10px;">
+            <mat-card style="background-color: rgba(255,255,255,0.8);border: 4px orange solid;">
+                <div class="flex-container" style="height:max-content;">
+                    <div class="flex-item">
+                        <div style="text-align: left;"><b>高量級</b></div>
+                    </div>
+                </div>
+                <div class="flex-container" style="height:max-content;">
+                    <div class="flex-item" style="border: 2px silver solid;" *ngFor="let item of Array_3">
+                        <div style="text-align: center;">{{item.County}}</div>
+                        <div style="text-align: center;">{{item.SiteName}}</div>
+                        <div style="text-align: center;">{{item.UVI}}</div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>

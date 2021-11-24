@@ -36,6 +36,12 @@ export class UltravioletComponent implements OnInit {
   public items: Array<any> = [];
   public results: Array<any> = [];
 
+  public Array_1: any[] = [];//Green
+  public Array_2: any[] = [];//Yellow
+  public Array_3: any[] = [];//Orange
+  public Array_4: any[] = [];//Red
+  public Array_5: any[] = [];//Purple
+
   constructor(private GeneralService: GeneralService) { }
 
   ngOnInit() {
@@ -53,6 +59,13 @@ export class UltravioletComponent implements OnInit {
         //response.fields.forEach((element: any) => console.log(element.id));
         this.UVRecordDataSource.data = response.records;
         this.items = response.records;
+
+        this.Array_1 = response.records.filter((x: { UVI: string; }) => Number(x.UVI) >= 0 && Number(x.UVI) < 3);
+        this.Array_2 = response.records.filter((x: { UVI: string; }) => Number(x.UVI) >= 3 && Number(x.UVI) < 6);
+        this.Array_3 = response.records.filter((x: { UVI: string; }) => Number(x.UVI) >= 6 && Number(x.UVI) < 8);
+        this.Array_4 = response.records.filter((x: { UVI: string; }) => Number(x.UVI) >= 8 && Number(x.UVI) < 11);
+        this.Array_5 = response.records.filter((x: { UVI: string; }) => Number(x.UVI) >= 11);
+        console.log(this.Array_4);
 
       },
       (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
