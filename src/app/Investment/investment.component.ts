@@ -18,6 +18,8 @@ export class InvestmentComponent implements OnInit {
   txtUserId = '';
   cookieUserId = '';
 
+  public ARRAY: any[] = [];
+
   showInputUserId: boolean = false;
 
   constructor(public cookieService: CookieService, private GeneralService: GeneralService) {
@@ -25,13 +27,12 @@ export class InvestmentComponent implements OnInit {
     if (this.cookieUserId == null || this.cookieUserId == '') {
       this.showInputUserId = true;
     }
-
   }
 
   // constructor() { }
 
   ngOnInit(): void {
-    //this.GetRecord();
+    this.GetRecord();
     //this.SetRecord();
   }
 
@@ -53,18 +54,12 @@ export class InvestmentComponent implements OnInit {
     //   console.log(data);
     // });
 
-    // this.GeneralService.getInvestmentRecord().subscribe((jsonCallback) => {
-    //   console.log(jsonCallback);
-    // }, (error) => {
-    //   console.log(error);
-    // }, () => { });
-
-    // this.GeneralService.getInvestmentRecord().subscribe(
-    //   (response: any) => {
-    //     console.log(response);
-    //   },
-    //   (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
-    // );
+    this.GeneralService.getInvestmentRecord().subscribe(
+      (response: any) => {
+        this.ARRAY = response;
+      },
+      (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
+    );
   }
 
 }
