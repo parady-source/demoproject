@@ -15,10 +15,13 @@ import { General } from '../general';
 
 export class InvestmentComponent implements OnInit {
 
-  txtUserId = '';
-  cookieUserId: string | null = '';
+  public txtUserId: string = '';
+  public txtTarget: number = 0;
+  public cookieUserId: string | null = '';
 
   public Stock_Array: string[] = [];
+  public sum3year: number = 0;
+  public sum5year: number = 0;
   public Rate_1: number = 0;
   public Rate_2: number = 0;
 
@@ -55,39 +58,50 @@ export class InvestmentComponent implements OnInit {
 
   ResetUserId(e: any) {
     this.cookieService.delete('InvestmentUserId');
+    this.txtUserId = '';
+    this.txtTarget = 0;
     this.cookieUserId = null;
+    this.Stock_Array = [];
+    this.sum3year = 0;
+    this.sum5year = 0;
     this.Rate_1 = 0;
     this.Rate_2 = 0;
-    this.Stock_Array = [];
+
     this.showInputUserId = true;
-  }
-
-  GetData() {
-    this.GeneralService.getInvestmentData().subscribe(
-      (response: any) => {
-        console.log(response);
-      },
-      (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
-    );
-
   }
 
   GetRecord(UserId: string) {
     this.GeneralService.getInvestmentRecord(UserId).subscribe(
       (response: string[]) => {
+
         response.forEach(x => {
           this.Stock_Array.push(x.toString());
-          this.Rate_1 = 10;
-          this.Rate_2 = 20;
-        })
-
+          this.sum3year += Number(x.toString().split(',')[14]);
+          this.sum5year += Number(x.toString().split(',')[20]);
+        });
+        if (this.txtTarget != null && this.txtTarget != 0) {
+          this.Rate_1 = Number(((this.sum3year / this.txtTarget) * 100).toFixed(2).toString());
+          this.Rate_2 = Number(((this.sum5year / this.txtTarget) * 100).toFixed(2).toString());
+        }
       },
       (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
     );
   }
 
+  SetRate(e: any) {
+    this.txtTarget = e.value;
+    if (this.txtTarget != null && this.txtTarget != 0) {
+      this.Rate_1 = Number(((this.sum3year / this.txtTarget) * 100).toFixed(2).toString());
+      this.Rate_2 = Number(((this.sum5year / this.txtTarget) * 100).toFixed(2).toString());
+    }
+    else {
+      this.Rate_1 = 0;
+      this.Rate_2 = 0;
+    }
+  }
+
   SetRecord() {
-    this.GeneralService.addInvestmentRecord("Kisky", "2999", 100, 100).subscribe(
+    this.GeneralService.setInvestmentRecord("Kisky", "2999", 100, 100).subscribe(
       (response: any) => {
         console.log(response);
         //this.ARRAY = response;

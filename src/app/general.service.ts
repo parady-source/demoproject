@@ -23,7 +23,7 @@ export class GeneralService {
 
   stockurl = 'https://www.tpex.org.tw/openapi/v1/tpex_mainboard_peratio_analysis';
 
-  InvestmentReadUrl = 'https://script.google.com/macros/s/AKfycbwNHG8sRVE-fWKQM-i6JhpEjMs8vHNnW1o2-sDTnT38OlAi6C4TAVFuEevpfuxxUwnD/exec?';
+  InvestmentReadUrl = 'https://script.google.com/macros/s/AKfycbyz8E9OfGwtS93LRqYyOw03gpNiOlhzCldn2kKq6CXSCXRuIlyHybVZh8meodUbTYh9/exec?';
   InvestmentCreateUrl = 'https://script.google.com/macros/s/AKfycbykwleSn1wkNINOYoxhBhEZuwQPw-FgMBUm5FQ0oqY7BBaOt0dWkx8aTc2BmdMzkpbq?';
 
   constructor(private http: HttpClient) { }
@@ -40,33 +40,12 @@ export class GeneralService {
     return this.http.get<any>(URL);
   }
 
-  public getInvestmentData(): Observable<any> {
-    const URL = this.stockurl;
-
-    let headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET',
-      'Access-Control-Max-Age': '1000'
-    });
-
-    let options = {
-      headers
-    };
-
-    this.http.get<any>(URL, options).subscribe(data => {
-      console.log(data);
-    });
-
-    return this.http.get<any>(URL, options);
-
-  }
-
   public getInvestmentRecord(UserId: string): Observable<any> {
     const URL = this.InvestmentReadUrl;
     return this.http.get<any>(URL + 'UserId=' + UserId);
   }
 
-  public addInvestmentRecord(userid: string, stockid: string, count: number, price: number): Observable<boolean> {
+  public setInvestmentRecord(userid: string, stockid: string, count: number, price: number): Observable<boolean> {
     const URL = this.InvestmentCreateUrl;
 
     let body = { 'userid': userid, 'stockid': stockid, 'count': count, 'price': price };
