@@ -16,47 +16,81 @@ import { General } from '../general';
 export class InvestmentComponent implements OnInit {
 
   txtUserId = '';
-  cookieUserId = '';
+  cookieUserId: string | null = '';
 
-  public ARRAY: any[] = [];
+  public Stock_Array: string[] = [];
+  public Rate_1: number = 0;
+  public Rate_2: number = 0;
 
   showInputUserId: boolean = false;
 
   constructor(public cookieService: CookieService, private GeneralService: GeneralService) {
-    this.cookieUserId = this.cookieService.get('UserId');
+    this.cookieUserId = this.cookieService.get('InvestmentUserId');
     if (this.cookieUserId == null || this.cookieUserId == '') {
       this.showInputUserId = true;
+    }
+    else {
+      this.GetRecord(this.cookieUserId);
+      //this.GetData();
     }
   }
 
   // constructor() { }
 
   ngOnInit(): void {
-    this.GetRecord();
-    //this.SetRecord();
+
   }
 
-  GetUserId(e: any) {
+  SetUserId(e: any) {
     this.cookieUserId = e.value;
     const expireDate: Date = new Date();
-    // expireDate.setSeconds(expireDate.getSeconds() + 10);
     expireDate.setFullYear(expireDate.getFullYear() + 1);
-    this.cookieService.set('UserId', e.value, expireDate);
+    this.cookieService.set('InvestmentUserId', e.value, expireDate);
+    this.cookieUserId = e.value;
     this.showInputUserId = false;
+
+    this.GetRecord(e.value);
+    //this.GetData();
+  }
+
+  ResetUserId(e: any) {
+    this.cookieService.delete('InvestmentUserId');
+    this.cookieUserId = null;
+    this.Rate_1 = 0;
+    this.Rate_2 = 0;
+    this.Stock_Array = [];
+    this.showInputUserId = true;
+  }
+
+  GetData() {
+    this.GeneralService.getInvestmentData().subscribe(
+      (response: any) => {
+        console.log(response);
+      },
+      (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
+    );
+
+  }
+
+  GetRecord(UserId: string) {
+    this.GeneralService.getInvestmentRecord(UserId).subscribe(
+      (response: string[]) => {
+        response.forEach(x => {
+          this.Stock_Array.push(x.toString());
+          this.Rate_1 = 10;
+          this.Rate_2 = 20;
+        })
+
+      },
+      (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
+    );
   }
 
   SetRecord() {
-    this.GeneralService.addInvestmentRecord("xx", "2999", 100, 100);
-  }
-
-  GetRecord() {
-    // this.GeneralService.getInvestmentRecord().subscribe((data: any) => {
-    //   console.log(data);
-    // });
-
-    this.GeneralService.getInvestmentRecord().subscribe(
+    this.GeneralService.addInvestmentRecord("Kisky", "2999", 100, 100).subscribe(
       (response: any) => {
-        this.ARRAY = response;
+        console.log(response);
+        //this.ARRAY = response;
       },
       (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
     );

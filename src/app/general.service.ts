@@ -21,7 +21,9 @@ export class GeneralService {
   url = 'https://data.epa.gov.tw/api';
   apikey = '0874be33-c993-4def-8726-6cc53c1c3684';
 
-  InvestmentReadUrl = 'https://script.google.com/macros/s/AKfycbyE5NgktbSCmJcD5lC2JKQugTlFarRmkH5VoxwBqdxCOBKhDzcnbmx4pYgK4-8hgKRr/exec?';
+  stockurl = 'https://www.tpex.org.tw/openapi/v1/tpex_mainboard_peratio_analysis';
+
+  InvestmentReadUrl = 'https://script.google.com/macros/s/AKfycbwNHG8sRVE-fWKQM-i6JhpEjMs8vHNnW1o2-sDTnT38OlAi6C4TAVFuEevpfuxxUwnD/exec?';
   InvestmentCreateUrl = 'https://script.google.com/macros/s/AKfycbykwleSn1wkNINOYoxhBhEZuwQPw-FgMBUm5FQ0oqY7BBaOt0dWkx8aTc2BmdMzkpbq?';
 
   constructor(private http: HttpClient) { }
@@ -38,11 +40,30 @@ export class GeneralService {
     return this.http.get<any>(URL);
   }
 
-  public getInvestmentRecord(
-  ): Observable<any> {
+  public getInvestmentData(): Observable<any> {
+    const URL = this.stockurl;
 
+    let headers = new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET',
+      'Access-Control-Max-Age': '1000'
+    });
+
+    let options = {
+      headers
+    };
+
+    this.http.get<any>(URL, options).subscribe(data => {
+      console.log(data);
+    });
+
+    return this.http.get<any>(URL, options);
+
+  }
+
+  public getInvestmentRecord(UserId: string): Observable<any> {
     const URL = this.InvestmentReadUrl;
-    return this.http.get<any>(URL);
+    return this.http.get<any>(URL + 'UserId=' + UserId);
   }
 
   public addInvestmentRecord(userid: string, stockid: string, count: number, price: number): Observable<boolean> {
@@ -51,7 +72,9 @@ export class GeneralService {
     let body = { 'userid': userid, 'stockid': stockid, 'count': count, 'price': price };
 
     let headers = new HttpHeaders({
-
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
+      'Access-Control-Max-Age': '1000'
     });
 
     let options = {
@@ -60,6 +83,7 @@ export class GeneralService {
 
     return this.http.post<any>(URL, body, options);
   }
+
 
   // http呼叫錯誤處理
   public HandleError(e: any): void {

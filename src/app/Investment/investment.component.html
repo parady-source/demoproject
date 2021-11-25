@@ -1,6 +1,9 @@
 <div style="text-align: right; padding-right:10px;">
-    <mat-icon *ngIf="!showInputUserId" style="vertical-align: text-bottom;">person</mat-icon>
-    <span *ngIf="!showInputUserId" class="full-width"> {{cookieUserId}}</span>
+    <button mat-raised-button (click)="ResetUserId(cookieUserId)">
+        <mat-icon *ngIf="!showInputUserId" style="vertical-align: center;">person</mat-icon>
+        <span *ngIf="!showInputUserId" class="full-width"> {{cookieUserId}}</span>
+        <mat-icon *ngIf="!showInputUserId" style="vertical-align: center;padding-left: 5px;">exit_to_app</mat-icon>
+    </button>
 </div>
 
 <div style="text-align: center;">
@@ -16,13 +19,79 @@
             <mat-label>請輸入使用者代號</mat-label>
             <input matInput #txtUserId id="txtUserId" placeholder="Ex. ..." />
         </mat-form-field>
-        <button mat-button (click)="GetUserId(txtUserId)">Login</button>
+        <button mat-button (click)="SetUserId(txtUserId)">Login</button>
     </div>
 
-    <div>Two Pie Chart</div>
-    <div>add new stock and count</div>
-    <div>
-        Stock List
-        {{ARRAY}}
+    <div style="margin: auto;width: 60%;padding: 10px;">
+        <mat-card style="background-color: rgba(255,255,255,0.8);text-align: left;">
+            <mat-card-title>目標達成率</mat-card-title>
+            <div class="flex-container" style="height:max-content;">
+                <div class="flex-item">
+                    <p>平均 <b>3</b> 年股利計算</p>
+                    <div class="c100 p{{Rate_1}} center">
+                        <span>{{Rate_1}}%</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+
+                <div class="flex-item">
+                    <p>平均 <b>5</b> 年股利計算</p>
+                    <div class="c100 p{{Rate_2}} center">
+                        <span>{{Rate_2}}%</span>
+                        <div class="slice">
+                            <div class="bar"></div>
+                            <div class="fill"></div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+
+            </div>
+        </mat-card>
+    </div>
+    <div style="margin: auto;width: 60%;padding: 10px;">
+        <mat-card style="background-color: rgba(255,255,255,0.8);text-align: left;">
+            <mat-card-title>現有股票清單</mat-card-title>
+            <div class="flex-container" style="height:max-content;">
+                <div class="flex-item">
+                    <section style="width: 100%;">
+                        <header>
+                            <div class="col" style="text-align: left;font-size: larger;"><b>股票代碼</b></div>
+                            <div class="col" style="text-align: left;font-size: larger;"><b>現有股數</b></div>
+                            <div class="col" style="text-align: left;font-size: larger;"><b>均價</b></div>
+                            <div class="col" style="text-align: left;font-size: larger;"><b>1</b></div>
+                            <div class="col" style="text-align: left;font-size: larger;"><b>2</b></div>
+                            <div class="col" style="text-align: left;font-size: larger;"><b>3</b></div>
+                            <div class="col" style="text-align: left;font-size: larger;"><b>4</b></div>
+                        </header>
+                        <span *ngFor="let stock of Stock_Array">
+                            <div class="row">
+                                <div class="col"
+                                    style="text-align: left;border-bottom: 1px silver solid;padding-top: 2px;">
+                                    {{stock.toString().split(',')[0]}}</div>
+                                <div class="col"
+                                    style="text-align: left;border-bottom: 1px silver solid;padding-top: 2px;">
+                                    {{stock.toString().split(',')[1]}}</div>
+                                <div class="col"
+                                    style="text-align: left;border-bottom: 1px silver solid;padding-top: 2px;">
+                                    {{stock.toString().split(',')[2]}}</div>
+                                <div class="col"
+                                    style="text-align: left;border-bottom: 1px silver solid;padding-top: 2px;"></div>
+                                <div class="col"
+                                    style="text-align: left;border-bottom: 1px silver solid;padding-top: 2px;"></div>
+                                <div class="col"
+                                    style="text-align: left;border-bottom: 1px silver solid;padding-top: 2px;"></div>
+                                <div class="col"
+                                    style="text-align: left;border-bottom: 1px silver solid;padding-top: 2px;"></div>
+                            </div>
+                        </span>
+                    </section>
+                </div>
+            </div>
+        </mat-card>
     </div>
 </div>
