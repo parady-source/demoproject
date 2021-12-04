@@ -20,10 +20,8 @@ export class InvestmentComponent implements OnInit {
   public cookieUserId: string | null = '';
 
   public Stock_Array: string[] = [];
-  public sum3year: number = 0;
-  public sum5year: number = 0;
-  public Rate_1: number = 0;
-  public Rate_2: number = 0;
+  public sumRevenue: number = 0;
+  public sumRate: number = 0;
 
   showInputUserId: boolean = false;
 
@@ -62,10 +60,8 @@ export class InvestmentComponent implements OnInit {
     this.txtTarget = 0;
     this.cookieUserId = null;
     this.Stock_Array = [];
-    this.sum3year = 0;
-    this.sum5year = 0;
-    this.Rate_1 = 0;
-    this.Rate_2 = 0;
+    this.sumRevenue = 0;
+    this.sumRate = 0;
 
     this.showInputUserId = true;
   }
@@ -76,13 +72,12 @@ export class InvestmentComponent implements OnInit {
 
         response.forEach(x => {
           this.Stock_Array.push(x.toString());
-          this.sum3year += Number(x.toString().split(',')[14]);
-          this.sum5year += Number(x.toString().split(',')[20]);
+          //this.sumRevenue += Number(x.toString().split(',')[14]);
         });
         if (this.txtTarget != null && this.txtTarget != 0) {
-          this.Rate_1 = Number(((this.sum3year / this.txtTarget) * 100).toFixed(2).toString());
-          this.Rate_2 = Number(((this.sum5year / this.txtTarget) * 100).toFixed(2).toString());
+          //this.sumRate = Number(((this.sumRevenue / this.txtTarget) * 100).toFixed(2).toString());
         }
+        console.log(this.Stock_Array)
       },
       (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
     );
@@ -91,23 +86,21 @@ export class InvestmentComponent implements OnInit {
   SetRate(e: any) {
     this.txtTarget = e.value;
     if (this.txtTarget != null && this.txtTarget != 0) {
-      this.Rate_1 = Number(((this.sum3year / this.txtTarget) * 100).toFixed(2).toString());
-      this.Rate_2 = Number(((this.sum5year / this.txtTarget) * 100).toFixed(2).toString());
+      //this.sumRate = Number(((this.sumRevenue / this.txtTarget) * 100).toFixed(2).toString());
     }
     else {
-      this.Rate_1 = 0;
-      this.Rate_2 = 0;
+      //this.sumRate = 0;
     }
   }
 
   SetRecord() {
-    this.GeneralService.setInvestmentRecord("Kisky", "2999", 100, 100).subscribe(
-      (response: any) => {
-        console.log(response);
-        //this.ARRAY = response;
-      },
-      (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
-    );
+    // this.GeneralService.setInvestmentRecord("Kisky", "2999", 100, 100).subscribe(
+    //   (response: any) => {
+    //     console.log(response);
+    //     //this.ARRAY = response;
+    //   },
+    //   (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
+    // );
   }
 
 }

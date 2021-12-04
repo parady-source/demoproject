@@ -121,13 +121,13 @@ export class AqiComponent implements OnInit {
 
         for (let county of County_Array) {
           var temp_Array = response.records.filter((x: { County: string; }) => x.County == county);
-
+          console.log(temp_Array);
           if (temp_Array.length < 1) {
             Count_AQI = 0; Count_PM25 = 0; Count_PM10 = 0; Count_O3 = 0; Count_SO2 = 0; Count_NO2 = 0;
           }
           else {
             Count_AQI = temp_Array.reduce((sum: number, current: { AQI: string; }) => sum + Number(current.AQI), 0) / temp_Array.length;
-            Count_PM25 = temp_Array.reduce((sum: number, current: { PM25: string; }) => sum + Number(current.PM25), 0) / temp_Array.length;
+            Count_PM25 = temp_Array.reduce((sum: number, current: { 'PM2.5': string; }) => sum + Number(current['PM2.5']), 0) / temp_Array.length;
             Count_PM10 = temp_Array.reduce((sum: number, current: { PM10: string; }) => sum + Number(current.PM10), 0) / temp_Array.length;
             Count_O3 = temp_Array.reduce((sum: number, current: { O3: string; }) => sum + Number(current.O3), 0) / temp_Array.length;
             Count_SO2 = temp_Array.reduce((sum: number, current: { SO2: string; }) => sum + Number(current.SO2), 0) / temp_Array.length;
@@ -200,6 +200,8 @@ export class AqiComponent implements OnInit {
             data: PM25_Array,
             backgroundColor: Color_1,
             borderColor: "#ccc",
+            hoverBackgroundColor: Color_1,
+            hoverBorderColor: "silver",
             borderWidth: 1
           },
           {
@@ -207,6 +209,8 @@ export class AqiComponent implements OnInit {
             data: PM10_Array,
             backgroundColor: Color_2,
             borderColor: "#ccc",
+            hoverBackgroundColor: Color_2,
+            hoverBorderColor: "silver",
             borderWidth: 1
           },
           {
@@ -214,6 +218,8 @@ export class AqiComponent implements OnInit {
             data: O3_Array,
             backgroundColor: Color_3,
             borderColor: "#ccc",
+            hoverBackgroundColor: Color_3,
+            hoverBorderColor: "silver",
             borderWidth: 1
           },
           {
@@ -221,6 +227,8 @@ export class AqiComponent implements OnInit {
             data: SO2_Array,
             backgroundColor: Color_4,
             borderColor: "#ccc",
+            hoverBackgroundColor: Color_4,
+            hoverBorderColor: "silver",
             borderWidth: 1
           },
           {
@@ -228,6 +236,8 @@ export class AqiComponent implements OnInit {
             data: NO2_Array,
             backgroundColor: Color_5,
             borderColor: "#ccc",
+            hoverBackgroundColor: Color_5,
+            hoverBorderColor: "silver",
             borderWidth: 1
           },
         ];
