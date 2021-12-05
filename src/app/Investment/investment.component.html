@@ -22,16 +22,19 @@
         <button mat-button (click)="SetUserId(txtUserId)">Login</button>
     </div>
 
-    <div style="margin: auto;width: 90%;padding: 10px;">
+    <div style="margin: auto;width: 90%;padding: 10px;" *ngIf="!showInputUserId">
         <mat-card style="background-color: rgba(255,255,255,0.8);text-align: left;">
             <mat-card-title>目標達成率</mat-card-title>
-            <mat-card-subtitle>
-                <mat-form-field style="width: 100%; vertical-align: baseline">
-                    <mat-label>目標 <b>每年</b> 股利</mat-label>
-                    <input matInput #txtTarget id="txtTarget" (keyup)="SetRate(txtTarget)" type="number" />
-                </mat-form-field>
-            </mat-card-subtitle>
             <div class="flex-container" style="height:max-content;">
+
+                <div class="flex-item">
+                    <mat-form-field style="width: 100%;vertical-align: baseline">
+                        <mat-label>目標 <b>每年</b> 股利</mat-label>
+                        <input matInput #txtTarget id="txtTarget" style="height:30px" (keyup)="SetRate(txtTarget)"
+                            type="number" />
+                    </mat-form-field>
+                </div>
+
                 <div class="flex-item">
                     <p>目前股利</p>
                     <div class="c100 p100 center">
@@ -59,7 +62,7 @@
             </div>
         </mat-card>
     </div>
-    <div style="margin: auto;width: 90%;padding: 10px;">
+    <div style="margin: auto;width: 90%;padding: 10px;" *ngIf="!showInputUserId">
         <mat-card style="background-color: rgba(255,255,255,0.8);text-align: left;">
             <mat-card-title>現有股票清單</mat-card-title>
             <mat-tab-group [@.disabled]="true" mat-align-tabs="center">
@@ -77,6 +80,31 @@
                         <div class="flex-item" style="width: 10%;">目前市值</div>
                         <div class="flex-item" style="width: 10%;">目前損益</div>
                         <div class="flex-item" style="width: 10%;">損益率</div>
+                    </div>
+                    <div class="flex-container" style="width:80%;text-align: left;height: max-content;">
+                        <div class="flex-item" style="width: 24%;">
+                            <mat-form-field style="width: 90%; vertical-align: baseline">
+                                <input matInput #txtStockId id="txtStockId" placeholder="Ex. 2883"
+                                    style="background-color: aliceblue;" />
+                            </mat-form-field>
+                        </div>
+                        <div class="flex-item" style="width: 10%;">
+                            <mat-form-field style="width: 90%; vertical-align: baseline">
+                                <input matInput #txtStockCount id="txtStockCount" type="number" placeholder="Ex. 1000"
+                                    style="background-color: aliceblue;" />
+                            </mat-form-field>
+                        </div>
+                        <div class="flex-item" style="width: 10%;">
+                            <mat-form-field style="width: 90%; vertical-align: baseline">
+                                <input matInput #txtStockPrice id="txtStockPrice" type="number" placeholder="Ex. 21.3"
+                                    style="background-color: aliceblue;" />
+                            </mat-form-field>
+                        </div>
+                        <div class="flex-item" style="width: 50%;float: right;">
+                            <button mat-raised-button
+                                (click)="SetRecord(txtStockId.value,txtStockCount.value,txtStockPrice.value)">Add New
+                                Stock</button>
+                        </div>
                     </div>
                     <span *ngFor="let stock of Stock_Array">
                         <div class="flex-container" style="width:80%;text-align: left;">
@@ -117,7 +145,7 @@
                         </div>
                     </span>
                 </mat-tab>
-                
+
             </mat-tab-group>
 
             <!-- <div class="flex-container" style="height:max-content;">

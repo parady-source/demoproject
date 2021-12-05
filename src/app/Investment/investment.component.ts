@@ -19,6 +19,10 @@ export class InvestmentComponent implements OnInit {
   public txtTarget: number = 0;
   public cookieUserId: string | null = '';
 
+  public txtStockId: string = '';
+  public txtStockCount: string = '';
+  public txtStockPrice: string = '';
+
   public Stock_Array: string[] = [];
   public sumRevenue: number = 0;
   public sumRate: number = 0;
@@ -32,7 +36,6 @@ export class InvestmentComponent implements OnInit {
     }
     else {
       this.GetRecord(this.cookieUserId);
-      //this.GetData();
     }
   }
 
@@ -51,7 +54,6 @@ export class InvestmentComponent implements OnInit {
     this.showInputUserId = false;
 
     this.GetRecord(e.value);
-    //this.GetData();
   }
 
   ResetUserId(e: any) {
@@ -59,6 +61,9 @@ export class InvestmentComponent implements OnInit {
     this.txtUserId = '';
     this.txtTarget = 0;
     this.cookieUserId = null;
+    this.txtStockId = '';
+    this.txtStockCount = '';
+    this.txtStockPrice = '';
     this.Stock_Array = [];
     this.sumRevenue = 0;
     this.sumRate = 0;
@@ -67,9 +72,10 @@ export class InvestmentComponent implements OnInit {
   }
 
   GetRecord(UserId: string) {
+    console.log(UserId);
     this.GeneralService.getInvestmentRecord(UserId).subscribe(
       (response: string[]) => {
-
+        this.Stock_Array = [];
         response.forEach(x => {
           this.Stock_Array.push(x.toString());
           //this.sumRevenue += Number(x.toString().split(',')[14]);
@@ -77,7 +83,7 @@ export class InvestmentComponent implements OnInit {
         if (this.txtTarget != null && this.txtTarget != 0) {
           //this.sumRate = Number(((this.sumRevenue / this.txtTarget) * 100).toFixed(2).toString());
         }
-        console.log(this.Stock_Array)
+
       },
       (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
     );
@@ -93,14 +99,22 @@ export class InvestmentComponent implements OnInit {
     }
   }
 
-  SetRecord() {
-    // this.GeneralService.setInvestmentRecord("Kisky", "2999", 100, 100).subscribe(
-    //   (response: any) => {
-    //     console.log(response);
-    //     //this.ARRAY = response;
-    //   },
-    //   (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
-    // );
+  SetRecord(StockId: string, StockCount: string, StockPrice: string) {
+    var UserId = this.cookieUserId == null ? '' : this.cookieUserId.toString();
+    if (UserId != '' && StockId != '' && Number(StockCount) > 0 && Number(StockPrice) > 0) {
+      this.GeneralService.setInvestmentRecord(UserId, StockId, Number(StockCount), Number(StockPrice)).subscribe(
+        (response: boolean) => {
+          if (response) {
+            this.GetRecord(UserId);
+            this.txtStockId = '';
+            this.txtStockCount = '';
+            this.txtStockPrice = '';
+          }
+
+        },
+        (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
+      );
+    }
   }
 
 }
