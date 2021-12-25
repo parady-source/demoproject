@@ -47,13 +47,15 @@ export class InvestmentComponent implements OnInit {
 
   SetUserId(e: any) {
     this.cookieUserId = e.value;
-    const expireDate: Date = new Date();
-    expireDate.setFullYear(expireDate.getFullYear() + 1);
-    this.cookieService.set('InvestmentUserId', e.value, expireDate);
-    this.cookieUserId = e.value;
-    this.showInputUserId = false;
+    if (this.cookieUserId != '') {
+      const expireDate: Date = new Date();
+      expireDate.setFullYear(expireDate.getFullYear() + 1);
+      this.cookieService.set('InvestmentUserId', e.value, expireDate);
+      this.cookieUserId = e.value;
+      this.showInputUserId = false;
 
-    this.GetRecord(e.value);
+      this.GetRecord(e.value);
+    }
   }
 
   ResetUserId(e: any) {
@@ -77,13 +79,12 @@ export class InvestmentComponent implements OnInit {
       (response: string[]) => {
         this.Stock_Array = [];
         response.forEach(x => {
-          this.Stock_Array.push(x.toString());
-          //this.sumRevenue += Number(x.toString().split(',')[14]);
+          this.Stock_Array.push(x);
+          this.sumRevenue += (Number(x.toString().split(',')[2])) * (Number(x.toString().split(',')[5]));
         });
         if (this.txtTarget != null && this.txtTarget != 0) {
-          //this.sumRate = Number(((this.sumRevenue / this.txtTarget) * 100).toFixed(2).toString());
+          this.sumRate = Number(((this.sumRevenue / this.txtTarget) * 100).toFixed(2).toString());
         }
-
       },
       (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
     );
@@ -92,10 +93,10 @@ export class InvestmentComponent implements OnInit {
   SetRate(e: any) {
     this.txtTarget = e.value;
     if (this.txtTarget != null && this.txtTarget != 0) {
-      //this.sumRate = Number(((this.sumRevenue / this.txtTarget) * 100).toFixed(2).toString());
+      this.sumRate = Number(((this.sumRevenue / this.txtTarget) * 100).toFixed(2).toString());
     }
     else {
-      //this.sumRate = 0;
+      this.sumRate = 0;
     }
   }
 

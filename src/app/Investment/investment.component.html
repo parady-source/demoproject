@@ -19,7 +19,7 @@
             <mat-label>請輸入使用者代號</mat-label>
             <input matInput #txtUserId id="txtUserId" placeholder="Ex. ..." />
         </mat-form-field>
-        <button mat-button (click)="SetUserId(txtUserId)">Login</button>
+        <button mat-icon-button (click)="SetUserId(txtUserId)">Login</button>
     </div>
 
     <div style="margin: auto;width: 90%;padding: 10px;" *ngIf="!showInputUserId">
@@ -65,83 +65,153 @@
     <div style="margin: auto;width: 90%;padding: 10px;" *ngIf="!showInputUserId">
         <mat-card style="background-color: rgba(255,255,255,0.8);text-align: left;">
             <mat-card-title>現有股票清單</mat-card-title>
+            <mat-card-subtitle>
+                <span>
+                    <label style="padding-right: 5%;">股票代號
+                        <mat-form-field style="width:10%;vertical-align: baseline;text-align: left;">
+                            <input matInput #txtStockId id="txtStockId" placeholder="Ex. 2883" />
+                        </mat-form-field>
+                    </label>
+                    <label style="padding-right: 5%;">新增股數
+                        <mat-form-field style="width:10%;vertical-align: baseline;text-align: left;">
+                            <input matInput #txtStockCount id="txtStockCount" type="number" placeholder="Ex. 1000" />
+                        </mat-form-field>
+                    </label>
+                    <label style="padding-right: 5%;">平均單價
+                        <mat-form-field style="width:10%;vertical-align: baseline;text-align: left;">
+                            <input matInput #txtStockPrice id="txtStockPrice" type="number" placeholder="Ex. 21.3" />
+                        </mat-form-field>
+                    </label>
+                    <button mat-raised-button color="secondary"
+                        (click)="SetRecord(txtStockId.value,txtStockCount.value,txtStockPrice.value)"
+                        style="height: max-content;">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </span>
+            </mat-card-subtitle>
             <mat-tab-group [@.disabled]="true" mat-align-tabs="center">
                 <mat-tab>
                     <ng-template mat-tab-label>
-                        <h3><strong>基本數據<span style="padding-left: 5px"></span></strong></h3>
+                        <h3><strong>基本數據</strong></h3>
                     </ng-template>
-                    <div class="flex-container" style="width:80%;text-align: left;">
-                        <div class="flex-item" style="width: 8%;">股票代號</div>
-                        <div class="flex-item" style="width: 16%;">股票名稱</div>
-                        <div class="flex-item" style="width: 10%;">持有股數</div>
-                        <div class="flex-item" style="width: 10%;">平均單價</div>
-                        <div class="flex-item" style="width: 10%;">持有成本</div>
-                        <div class="flex-item" style="width: 10%;">最新現價</div>
-                        <div class="flex-item" style="width: 10%;">目前市值</div>
-                        <div class="flex-item" style="width: 10%;">目前損益</div>
-                        <div class="flex-item" style="width: 10%;">損益率</div>
+                    <div class="flex-container"
+                        style="width:80%;text-align: left;height: max-content;background-color: whitesmoke;">
+
                     </div>
-                    <div class="flex-container" style="width:80%;text-align: left;height: max-content;">
-                        <div class="flex-item" style="width: 24%;">
-                            <mat-form-field style="width: 90%; vertical-align: baseline">
-                                <input matInput #txtStockId id="txtStockId" placeholder="Ex. 2883"
-                                    style="background-color: aliceblue;" />
-                            </mat-form-field>
-                        </div>
-                        <div class="flex-item" style="width: 10%;">
-                            <mat-form-field style="width: 90%; vertical-align: baseline">
-                                <input matInput #txtStockCount id="txtStockCount" type="number" placeholder="Ex. 1000"
-                                    style="background-color: aliceblue;" />
-                            </mat-form-field>
-                        </div>
-                        <div class="flex-item" style="width: 10%;">
-                            <mat-form-field style="width: 90%; vertical-align: baseline">
-                                <input matInput #txtStockPrice id="txtStockPrice" type="number" placeholder="Ex. 21.3"
-                                    style="background-color: aliceblue;" />
-                            </mat-form-field>
-                        </div>
-                        <div class="flex-item" style="width: 50%;float: right;">
-                            <button mat-raised-button
-                                (click)="SetRecord(txtStockId.value,txtStockCount.value,txtStockPrice.value)">Add New
-                                Stock</button>
-                        </div>
+                    <div class="flex-container" style="width:80%;text-align: left;">
+                        <div class="flex-item" style="width: 8%;"><b>股票代號</b></div>
+                        <div class="flex-item" style="width: 16%;"><b>股票名稱</b></div>
+                        <div class="flex-item" style="width: 10%;"><b>持有股數</b></div>
+                        <div class="flex-item" style="width: 8%;"><b>平均單價</b></div>
+                        <div class="flex-item" style="width: 10%;"><b>持有成本</b></div>
+                        <div class="flex-item" style="width: 8%;"><b>最新現價</b></div>
+                        <div class="flex-item" style="width: 10%;"><b>目前市值</b></div>
+                        <div class="flex-item" style="width: 10%;"><b>目前損益</b></div>
+                        <div class="flex-item" style="width: 10%;"><b>損益率</b></div>
                     </div>
                     <span *ngFor="let stock of Stock_Array">
-                        <div class="flex-container" style="width:80%;text-align: left;">
+                        <div class="flex-container" style="width:80%;text-align: left;height: max-content;">
                             <div class="flex-item" style="width: 8%;">{{stock.toString().split(',')[0]}}</div>
                             <div class="flex-item" style="width: 16%;">{{stock.toString().split(',')[1]}}</div>
                             <div class="flex-item" style="width: 10%;">{{stock.toString().split(',')[2]}}</div>
-                            <div class="flex-item" style="width: 10%;">{{stock.toString().split(',')[3]}}</div>
-                            <div class="flex-item" style="width: 10%;"></div>
-                            <div class="flex-item" style="width: 10%;">{{stock.toString().split(',')[4]}}</div>
-                            <div class="flex-item" style="width: 10%;"></div>
-                            <div class="flex-item" style="width: 10%;"></div>
-                            <div class="flex-item" style="width: 10%;"></div>
+                            <div class="flex-item" style="width: 8%;">{{(+(stock.toString().split(',')[3])).toFixed(2)}}
+                            </div>
+                            <div class="flex-item" style="width: 10%;">
+                                {{
+                                (+
+                                (+(stock.toString().split(',')[2])) *
+                                (+(stock.toString().split(',')[3])) +
+                                ((+(stock.toString().split(',')[2]) / 1000) * 20)
+                                ).toFixed(0)
+                                }}
+                            </div>
+                            <div class="flex-item" style="width: 8%;">{{(+(stock.toString().split(',')[4])).toFixed(2)}}
+                            </div>
+                            <div class="flex-item" style="width: 10%;">
+                                {{
+                                (+
+                                (+(stock.toString().split(',')[2])) *
+                                (+(stock.toString().split(',')[4])) -
+                                ((+(stock.toString().split(',')[2]) / 1000) * 40)
+                                ).toFixed(0)
+                                }}
+                            </div>
+                            <div class="flex-item" style="width: 10%;">
+                                {{
+                                (+
+                                (+(stock.toString().split(',')[2])) *
+                                ((+(stock.toString().split(',')[4])) - (+(stock.toString().split(',')[3])))
+                                -
+                                (
+                                ((+(stock.toString().split(',')[2])) / 1000) * 20
+                                )
+                                ).toFixed(0)
+                                }}
+                            </div>
+                            <div class="flex-item" style="width: 10%;">
+                                {{
+                                ((+
+                                ((+(stock.toString().split(',')[2])) *
+                                ((+(stock.toString().split(',')[4])) -(+(stock.toString().split(',')[3])) )
+                                -
+                                (((+(stock.toString().split(',')[2])) / 1000) * 20))
+                                /
+                                ((+(stock.toString().split(',')[2])) *
+                                (+(stock.toString().split(',')[3])) +
+                                (((+(stock.toString().split(',')[2])) / 1000) * 20 ))
+                                )*100).toFixed(2)
+                                }} %
+                            </div>
                         </div>
                     </span>
                 </mat-tab>
                 <mat-tab>
                     <ng-template mat-tab-label>
-                        <h3><strong>平均配股配息<span style="padding-left: 5px"></span></strong></h3>
+                        <h3><strong>平均配股配息</strong></h3>
                     </ng-template>
-                    <div class="flex-container" style="width:80%;text-align: left;">
-                        <div class="flex-item" style="width: 8%;">股票代號</div>
-                        <div class="flex-item" style="width: 16%;">股票名稱</div>
-                        <div class="flex-item" style="width: 15%;">現金配息</div>
-                        <div class="flex-item" style="width: 15%;">現金殖利率</div>
-                        <div class="flex-item" style="width: 15%;">現金配股</div>
-                        <div class="flex-item" style="width: 15%;">股票殖利率</div>
-                        <div class="flex-item" style="width: 15%;">年利息</div>
+                    <div class="flex-container" style="width:80%;text-align: left;height: max-content;">
+                        <div class="flex-item" style="width: 8%;"><b>股票代號</b></div>
+                        <div class="flex-item" style="width: 16%;"><b>股票名稱</b></div>
+                        <div class="flex-item" style="width: 10%;"><b>現金配息</b></div>
+                        <div class="flex-item" style="width: 10%;"><b>現金殖利率</b></div>
+                        <div class="flex-item" style="width: 10%;"><b>現金配股</b></div>
+                        <div class="flex-item" style="width: 10%;"><b>股票殖利率</b></div>
+                        <div class="flex-item" style="width: 26%;"><b>年利息</b></div>
                     </div>
                     <span *ngFor="let stock of Stock_Array">
-                        <div class="flex-container" style="width:80%;text-align: left;">
+                        <div class="flex-container" style="width:80%;text-align: left;height: max-content;">
                             <div class="flex-item" style="width: 8%;">{{stock.toString().split(',')[0]}}</div>
                             <div class="flex-item" style="width: 16%;">{{stock.toString().split(',')[1]}}</div>
-                            <div class="flex-item" style="width: 15%;">{{stock.toString().split(',')[5]}}</div>
-                            <div class="flex-item" style="width: 15%;"></div>
-                            <div class="flex-item" style="width: 15%;">{{stock.toString().split(',')[6]}}</div>
-                            <div class="flex-item" style="width: 15%;"></div>
-                            <div class="flex-item" style="width: 15%;"></div>
+                            <div class="flex-item" style="width: 10%;">
+                                {{(+(stock.toString().split(',')[5])).toFixed(4)}}</div>
+                            <div class="flex-item" style="width: 10%;">
+                                {{
+                                ((+
+                                (+(stock.toString().split(',')[5]))
+                                /
+                                (+(stock.toString().split(',')[4]))
+                                )*100).toFixed(2)
+                                }} %
+                            </div>
+                            <div class="flex-item" style="width: 10%;">
+                                {{(+(stock.toString().split(',')[6])).toFixed(4)}}</div>
+                            <div class="flex-item" style="width: 10%;">
+                                {{
+                                ((+
+                                (+(stock.toString().split(',')[6]))
+                                /
+                                (+(stock.toString().split(',')[4]))
+                                )*100).toFixed(2)
+                                }} %
+                            </div>
+                            <div class="flex-item" style="width: 26%;">
+                                {{
+                                (+
+                                (+(stock.toString().split(',')[5])) *
+                                (+(stock.toString().split(',')[2]))
+                                ).toFixed(0)
+                                }}
+                            </div>
                         </div>
                     </span>
                 </mat-tab>
