@@ -22,6 +22,7 @@ export class InvestmentComponent implements OnInit {
   public txtStockId: string = '';
   public txtStockCount: string = '';
   public txtStockPrice: string = '';
+  public btnAddStockDisabled: boolean = false;
 
   public Stock_Array: string[] = [];
   public sumRevenue: number = 0;
@@ -74,7 +75,11 @@ export class InvestmentComponent implements OnInit {
   }
 
   GetRecord(UserId: string) {
-    console.log(UserId);
+    this.btnAddStockDisabled = true;
+    this.txtStockId = '';
+    this.txtStockCount = '';
+    this.txtStockPrice = '';
+
     this.GeneralService.getInvestmentRecord(UserId).subscribe(
       (response: string[]) => {
         this.Stock_Array = [];
@@ -85,6 +90,7 @@ export class InvestmentComponent implements OnInit {
         if (this.txtTarget != null && this.txtTarget != 0) {
           this.sumRate = Number(((this.sumRevenue / this.txtTarget) * 100).toFixed(2).toString());
         }
+        this.btnAddStockDisabled = false;
       },
       (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
     );

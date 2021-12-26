@@ -82,7 +82,7 @@
                             <input matInput #txtStockPrice id="txtStockPrice" type="number" placeholder="Ex. 10.5" />
                         </mat-form-field>
                     </label>
-                    <button mat-raised-button color="secondary"
+                    <button mat-raised-button color="secondary" [disabled]="btnAddStockDisabled"
                         (click)="SetRecord(txtStockId.value,txtStockCount.value,txtStockPrice.value)"
                         style="height: max-content;">
                         <mat-icon>add</mat-icon>
