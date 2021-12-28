@@ -98,69 +98,45 @@
                         style="width:80%;text-align: left;height: max-content;background-color: whitesmoke;">
 
                     </div>
-                    <div class="flex-container" style="width:80%;text-align: left;">
+                    <div class="flex-container" style="width:80%;text-align: right;height: max-content;">
                         <div class="flex-item" style="width: 8%;"><b>股票代號</b></div>
-                        <div class="flex-item" style="width: 16%;"><b>股票名稱</b></div>
+                        <div class="flex-item" style="width: 14%;"><b>股票名稱</b></div>
                         <div class="flex-item" style="width: 10%;"><b>持有股數</b></div>
-                        <div class="flex-item" style="width: 8%;"><b>平均單價</b></div>
+                        <div class="flex-item" style="width: 10%;"><b>平均單價</b></div>
                         <div class="flex-item" style="width: 10%;"><b>持有成本</b></div>
-                        <div class="flex-item" style="width: 8%;"><b>最新現價</b></div>
+                        <div class="flex-item" style="width: 10%;"><b>最新現價</b></div>
                         <div class="flex-item" style="width: 10%;"><b>目前市值</b></div>
                         <div class="flex-item" style="width: 10%;"><b>目前損益</b></div>
                         <div class="flex-item" style="width: 10%;"><b>損益率</b></div>
                     </div>
                     <span *ngFor="let stock of Stock_Array">
-                        <div class="flex-container" style="width:80%;text-align: left;height: max-content;">
-                            <div class="flex-item" style="width: 8%;">{{stock.toString().split(',')[0]}}</div>
-                            <div class="flex-item" style="width: 16%;">{{stock.toString().split(',')[1]}}</div>
-                            <div class="flex-item" style="width: 10%;">{{stock.toString().split(',')[2]}}</div>
-                            <div class="flex-item" style="width: 8%;">{{(+(stock.toString().split(',')[3])).toFixed(2)}}
+                        <div class="flex-container" style="width:80%;text-align: right;height: max-content;">
+                            <div class="flex-item" style="width: 8%;border-bottom: 1px silver solid;">
+                                {{stock.toString().split(',')[0]}}
                             </div>
-                            <div class="flex-item" style="width: 10%;">
-                                {{
-                                (+
-                                (+(stock.toString().split(',')[2])) *
-                                (+(stock.toString().split(',')[3])) +
-                                ((+(stock.toString().split(',')[2]) / 1000) * 20)
-                                ).toFixed(0)
-                                }}
+                            <div class="flex-item" style="width: 14%;border-bottom: 1px silver solid;">
+                                {{stock.toString().split(',')[1]}}
                             </div>
-                            <div class="flex-item" style="width: 8%;">{{(+(stock.toString().split(',')[4])).toFixed(2)}}
+                            <div class="flex-item" style="width: 10%;border-bottom: 1px silver solid;">
+                                {{stock.toString().split(',')[2]}}
                             </div>
-                            <div class="flex-item" style="width: 10%;">
-                                {{
-                                (+
-                                (+(stock.toString().split(',')[2])) *
-                                (+(stock.toString().split(',')[4])) -
-                                ((+(stock.toString().split(',')[2]) / 1000) * 40)
-                                ).toFixed(0)
-                                }}
+                            <div class="flex-item" style="width: 10%;border-bottom: 1px silver solid;">
+                                {{(+(stock.toString().split(',')[3])).toFixed(2)}}
                             </div>
-                            <div class="flex-item" style="width: 10%;">
-                                {{
-                                (+
-                                (+(stock.toString().split(',')[2])) *
-                                ((+(stock.toString().split(',')[4])) - (+(stock.toString().split(',')[3])))
-                                -
-                                (
-                                ((+(stock.toString().split(',')[2])) / 1000) * 20
-                                )
-                                ).toFixed(0)
-                                }}
+                            <div class="flex-item" style="width: 10%;border-bottom: 1px silver solid;">
+                                {{(+(stock.toString().split(',')[4])).toFixed(0)}}
                             </div>
-                            <div class="flex-item" style="width: 10%;">
-                                {{
-                                ((+
-                                ((+(stock.toString().split(',')[2])) *
-                                ((+(stock.toString().split(',')[4])) -(+(stock.toString().split(',')[3])) )
-                                -
-                                (((+(stock.toString().split(',')[2])) / 1000) * 20))
-                                /
-                                ((+(stock.toString().split(',')[2])) *
-                                (+(stock.toString().split(',')[3])) +
-                                (((+(stock.toString().split(',')[2])) / 1000) * 20 ))
-                                )*100).toFixed(2)
-                                }} %
+                            <div class="flex-item" style="width: 10%;border-bottom: 1px silver solid;">
+                                {{(+(stock.toString().split(',')[5])).toFixed(2)}}
+                            </div>
+                            <div class="flex-item" style="width: 10%;border-bottom: 1px silver solid;">
+                                {{(+(stock.toString().split(',')[6])).toFixed(0)}}
+                            </div>
+                            <div class="flex-item" style="width: 10%;border-bottom: 1px silver solid;">
+                                {{(+(stock.toString().split(',')[7])).toFixed(0)}}
+                            </div>
+                            <div class="flex-item" style="width: 10%;border-bottom: 1px silver solid;">
+                                {{(+(stock.toString().split(',')[8])*100).toFixed(2)}} %
                             </div>
                         </div>
                     </span>
@@ -169,48 +145,37 @@
                     <ng-template mat-tab-label>
                         <h3><strong>平均配股配息</strong></h3>
                     </ng-template>
-                    <div class="flex-container" style="width:80%;text-align: left;height: max-content;">
+                    <div class="flex-container" style="width:80%;text-align: right;height: max-content;">
                         <div class="flex-item" style="width: 8%;"><b>股票代號</b></div>
-                        <div class="flex-item" style="width: 16%;"><b>股票名稱</b></div>
+                        <div class="flex-item" style="width: 14%;"><b>股票名稱</b></div>
                         <div class="flex-item" style="width: 10%;"><b>現金配息</b></div>
                         <div class="flex-item" style="width: 10%;"><b>現金殖利率</b></div>
                         <div class="flex-item" style="width: 10%;"><b>現金配股</b></div>
                         <div class="flex-item" style="width: 10%;"><b>股票殖利率</b></div>
-                        <div class="flex-item" style="width: 26%;"><b>年利息</b></div>
+                        <div class="flex-item" style="width: 10%;"><b>年利息</b></div>
                     </div>
                     <span *ngFor="let stock of Stock_Array">
-                        <div class="flex-container" style="width:80%;text-align: left;height: max-content;">
-                            <div class="flex-item" style="width: 8%;">{{stock.toString().split(',')[0]}}</div>
-                            <div class="flex-item" style="width: 16%;">{{stock.toString().split(',')[1]}}</div>
-                            <div class="flex-item" style="width: 10%;">
-                                {{(+(stock.toString().split(',')[5])).toFixed(4)}}</div>
-                            <div class="flex-item" style="width: 10%;">
-                                {{
-                                ((+
-                                (+(stock.toString().split(',')[5]))
-                                /
-                                (+(stock.toString().split(',')[4]))
-                                )*100).toFixed(2)
-                                }} %
+                        <div class="flex-container" style="width:80%;text-align: right;height: max-content;">
+                            <div class="flex-item" style="width: 8%;border-bottom: 1px silver solid;">
+                                {{stock.toString().split(',')[0]}}
                             </div>
-                            <div class="flex-item" style="width: 10%;">
-                                {{(+(stock.toString().split(',')[6])).toFixed(4)}}</div>
-                            <div class="flex-item" style="width: 10%;">
-                                {{
-                                ((+
-                                (+(stock.toString().split(',')[6]))
-                                /
-                                (+(stock.toString().split(',')[4]))
-                                )*100).toFixed(2)
-                                }} %
+                            <div class="flex-item" style="width: 14%;border-bottom: 1px silver solid;">
+                                {{stock.toString().split(',')[1]}}
                             </div>
-                            <div class="flex-item" style="width: 26%;">
-                                {{
-                                (+
-                                (+(stock.toString().split(',')[5])) *
-                                (+(stock.toString().split(',')[2]))
-                                ).toFixed(0)
-                                }}
+                            <div class="flex-item" style="width: 10%;border-bottom: 1px silver solid;">
+                                {{(+(stock.toString().split(',')[9])).toFixed(2)}}
+                            </div>
+                            <div class="flex-item" style="width: 10%;border-bottom: 1px silver solid;">
+                                {{(+(stock.toString().split(',')[10])*100).toFixed(2)}} %
+                            </div>
+                            <div class="flex-item" style="width: 10%;border-bottom: 1px silver solid;">
+                                {{(+(stock.toString().split(',')[11])).toFixed(2)}}
+                            </div>
+                            <div class="flex-item" style="width: 10%;border-bottom: 1px silver solid;">
+                                {{(+(stock.toString().split(',')[12])*100).toFixed(2)}} %
+                            </div>
+                            <div class="flex-item" style="width: 10%;border-bottom: 1px silver solid;">
+                                {{(+(stock.toString().split(',')[13])).toFixed(0)}}
                             </div>
                         </div>
                     </span>

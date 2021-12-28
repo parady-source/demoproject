@@ -85,7 +85,7 @@ export class InvestmentComponent implements OnInit {
         this.Stock_Array = [];
         response.forEach(x => {
           this.Stock_Array.push(x);
-          this.sumRevenue += (Number(x.toString().split(',')[2])) * (Number(x.toString().split(',')[5]));
+          this.sumRevenue += (Number(x.toString().split(',')[13]));
         });
         if (this.txtTarget != null && this.txtTarget != 0) {
           this.sumRate = Number(((this.sumRevenue / this.txtTarget) * 100).toFixed(2).toString());
