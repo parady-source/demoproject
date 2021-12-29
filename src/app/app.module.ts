@@ -41,6 +41,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { CdkTableModule } from '@angular/cdk/table';
 import { ChartsModule } from 'ng2-charts';
@@ -102,6 +103,7 @@ const appRoutes: Routes = [
     MatTableModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatProgressSpinnerModule,
     CdkTableModule,
     ChartsModule
   ],
