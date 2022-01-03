@@ -39,3 +39,14 @@ table th {
     font-weight: 400;
     font-family: 'Helvetica Neue', sans-serif;
 }
+
+.new-flex-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.new-item {
+    width: 20%;
+    text-align: center;
+    line-height: 30px;
+}
