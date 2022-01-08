@@ -25,6 +25,7 @@ export class InvestmentComponent implements OnInit {
   public btnAddStockDisabled: boolean = false;
 
   public Stock_Array: string[] = [];
+  public sumEarning: number = 0;
   public sumRevenue: number = 0;
   public sumRate: number = 0;
 
@@ -68,6 +69,7 @@ export class InvestmentComponent implements OnInit {
     this.txtStockCount = '';
     this.txtStockPrice = '';
     this.Stock_Array = [];
+    this.sumEarning = 0;
     this.sumRevenue = 0;
     this.sumRate = 0;
 
@@ -85,6 +87,7 @@ export class InvestmentComponent implements OnInit {
         this.Stock_Array = [];
         response.forEach(x => {
           this.Stock_Array.push(x);
+          this.sumEarning += (Number(x.toString().split(',')[7]));
           this.sumRevenue += (Number(x.toString().split(',')[13]));
         });
         if (this.txtTarget != null && this.txtTarget != 0) {

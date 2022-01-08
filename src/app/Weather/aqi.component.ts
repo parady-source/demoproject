@@ -2,7 +2,9 @@ import {
   Component,
   OnInit,
   ViewChild,
+  AfterViewInit,
   ElementRef,
+  ViewChildren,
 } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -50,6 +52,9 @@ export class AqiComponent implements OnInit {
   public Last2_County: string = '';
   public Last3: number = 0;
   public Last3_County: string = '';
+
+  public Top4to8: string[] = [];
+  public Last4to8: string[] = [];
 
   //2. City List (Bar Chart)
   // public barChartData: ChartDataSets[] = [];
@@ -121,7 +126,6 @@ export class AqiComponent implements OnInit {
 
         for (let county of County_Array) {
           var temp_Array = response.records.filter((x: { County: string; }) => x.County == county);
-          console.log(temp_Array);
           if (temp_Array.length < 1) {
             Count_AQI = 0; Count_PM25 = 0; Count_PM10 = 0; Count_O3 = 0; Count_SO2 = 0; Count_NO2 = 0;
           }
@@ -191,6 +195,24 @@ export class AqiComponent implements OnInit {
         tempAQI_Array.splice(index, 1);
         tempCounty_Array.splice(index, 1);
         //Rank End
+
+        var temp_index = 0;
+        var temp_Status = '';
+
+        while (tempAQI_Array.length > 0) {
+          temp_index = tempAQI_Array.indexOf(Math.min(...tempAQI_Array));
+          temp_Status = tempCounty_Array[temp_index] + ':' + Number(tempAQI_Array[temp_index].toFixed(0));
+
+          if (Number(tempAQI_Array[temp_index]) <= 50) {
+            this.Top4to8.push(temp_Status);
+          }
+          else {
+            this.Last4to8.push(temp_Status);
+          }
+          tempAQI_Array.splice(temp_index, 1);
+          tempCounty_Array.splice(temp_index, 1);
+        }
+        this.Last4to8 = this.Last4to8.slice().reverse();
 
         max = Number((max / 10).toFixed(0)) * 10;
 

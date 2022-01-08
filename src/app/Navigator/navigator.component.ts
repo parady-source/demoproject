@@ -38,4 +38,8 @@ export class NavigatorComponent {
 
   public SideNavTitle = 'Demo Project';
   public NavTitle = '';
+
+  get SumValue() {
+    return this.isExpanded;
+  }
 }
