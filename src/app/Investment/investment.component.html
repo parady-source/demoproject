@@ -61,7 +61,7 @@
 
                 <div class="flex-item">
                     <p>平均股利計算</p>
-                    <div class="c100 p{{sumRate.toFixed(0)}} center">
+                    <div class="c100 p{{sumRate>100?100:sumRate.toFixed(0)}} center">
                         <span>{{sumRate}}%</span>
                         <div class="slice">
                             <div class="bar"></div>
@@ -132,31 +132,31 @@
                                 {{stock.toString().split(',')[0]}}
                             </div>
                             <div class="new-item-header">
-                                {{stock.toString().split(',')[1]}}
+                                {{stock.toString().split(',')[6]}}
                             </div>
                             <div class="new-item">
-                                <!-- {{stock.toString().split(',')[2]}} -->
-                                <input matInput type="number" value="{{(+(stock.toString().split(',')[2]))}}" />
+                                <!-- {{stock.toString().split(',')[1]}} -->
+                                <input matInput type="number" value="{{(+(stock.toString().split(',')[1]))}}" />
                             </div>
                             <div class="new-item">
-                                <!-- {{(+(stock.toString().split(',')[3])).toFixed(2)}} -->
+                                <!-- {{(+(stock.toString().split(',')[2])).toFixed(2)}} -->
                                 <input matInput type="number" step="0.01"
-                                    value="{{(+(stock.toString().split(',')[3])).toFixed(2)}}" />
-                            </div>
-                            <div class="new-item">
-                                {{(+(stock.toString().split(',')[4])).toFixed(0)}}
-                            </div>
-                            <div class="new-item">
-                                {{(+(stock.toString().split(',')[5])).toFixed(2)}}
-                            </div>
-                            <div class="new-item">
-                                {{(+(stock.toString().split(',')[6])).toFixed(0)}}
+                                    value="{{(+(stock.toString().split(',')[2])).toFixed(2)}}" />
                             </div>
                             <div class="new-item">
                                 {{(+(stock.toString().split(',')[7])).toFixed(0)}}
                             </div>
+                            <div class="new-item">
+                                {{(+(stock.toString().split(',')[3])).toFixed(2)}}
+                            </div>
+                            <div class="new-item">
+                                {{(+(stock.toString().split(',')[8])).toFixed(0)}}
+                            </div>
+                            <div class="new-item">
+                                {{(+(stock.toString().split(',')[9])).toFixed(0)}}
+                            </div>
                             <div class="new-item-header">
-                                {{(+(stock.toString().split(',')[8])*100).toFixed(2)}} %
+                                {{(+(stock.toString().split(',')[10])*100).toFixed(2)}} %
                             </div>
                         </div>
                     </span>
@@ -180,16 +180,16 @@
                                 {{stock.toString().split(',')[0]}}
                             </div>
                             <div class="new-item-header">
-                                {{stock.toString().split(',')[1]}}
+                                {{stock.toString().split(',')[6]}}
                             </div>
                             <div class="new-item-header">
-                                {{(+(stock.toString().split(',')[9])).toFixed(2)}}
+                                {{(+(stock.toString().split(',')[4])).toFixed(2)}}
                             </div>
                             <div class="new-item-header">
-                                {{(+(stock.toString().split(',')[10])*100).toFixed(2)}} %
+                                {{(+(stock.toString().split(',')[11])*100).toFixed(2)}} %
                             </div>
                             <div class="new-item-header">
-                                {{(+(stock.toString().split(',')[11])).toFixed(2)}}
+                                {{(+(stock.toString().split(',')[5])).toFixed(2)}}
                             </div>
                             <div class="new-item-header">
                                 {{(+(stock.toString().split(',')[12])*100).toFixed(2)}} %

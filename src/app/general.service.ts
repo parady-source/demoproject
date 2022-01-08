@@ -23,7 +23,7 @@ export class GeneralService {
 
   stockurl = 'https://www.tpex.org.tw/openapi/v1/tpex_mainboard_peratio_analysis';
 
-  InvestmentReadUrl = 'https://script.google.com/macros/s/AKfycbxw0GdJofrI5Q0ogY70iIXD5vu_UD3lyLoUxKxbEozSNC2oVGijHqqzJx4gLdHiFBUH/exec?';
+  InvestmentReadUrl = 'https://script.google.com/macros/s/AKfycbzTXvZ1N1j58MyUdexW9w-7SHQf8LOWb-il5OgKOBcCHYLzraWH1GrEZ-dydN4HzNEW/exec?';
   InvestmentCreateUrl = 'https://script.google.com/macros/s/AKfycbxiHAnSCL2AjxE5iq6g7OwAiAEZvze7yfgxztC7gGOeOCtdc3A59sJh10_6LdHqC5RIHQ/exec?';
 
   constructor(private http: HttpClient) { }
