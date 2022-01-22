@@ -65,7 +65,6 @@ export class UltravioletComponent implements OnInit {
         this.Array_3 = response.records.filter((x: { UVI: string; }) => Number(x.UVI) >= 6 && Number(x.UVI) < 8);
         this.Array_4 = response.records.filter((x: { UVI: string; }) => Number(x.UVI) >= 8 && Number(x.UVI) < 11);
         this.Array_5 = response.records.filter((x: { UVI: string; }) => Number(x.UVI) >= 11);
-        console.log(this.Array_4);
 
       },
       (error: HttpErrorResponse) => this.GeneralService.HandleError(error)

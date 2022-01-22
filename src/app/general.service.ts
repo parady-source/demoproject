@@ -23,8 +23,8 @@ export class GeneralService {
 
   stockurl = 'https://www.tpex.org.tw/openapi/v1/tpex_mainboard_peratio_analysis';
 
-  InvestmentReadUrl = 'https://script.google.com/macros/s/AKfycbzTXvZ1N1j58MyUdexW9w-7SHQf8LOWb-il5OgKOBcCHYLzraWH1GrEZ-dydN4HzNEW/exec?';
-  InvestmentCreateUrl = 'https://script.google.com/macros/s/AKfycbz9jSDxk2TXExzYdrYZjZ-T4rmfU7ZDREXLmdZoqAqqUtfIT8Jwnc48NkHB27FtoBn3/exec?';
+  InvestmentReadUrl = 'https://script.google.com/macros/s/AKfycbyuDAnrZQKQQHObk6OEzGJQemwsHk4Zv0nipLmsqUGHOlluVCEZoE-PVGNN-kIQlrFc/exec?';
+  InvestmentCreateUrl = 'https://script.google.com/macros/s/AKfycbx0cPflbqgEC4HQ4MgJdwwpQQpw8EG3O9tl93UHnP0H289Ys8XkV4UMdOQUatwYtP8Nrw/exec?';
 
   constructor(private http: HttpClient) { }
 
@@ -40,9 +40,9 @@ export class GeneralService {
     return this.http.get<any>(URL);
   }
 
-  public getInvestmentRecord(UserId: string): Observable<any> {
+  public getInvestmentRecord(UserId: string, NeedUpdate: string): Observable<any> {
     const URL = this.InvestmentReadUrl;
-    return this.http.get<string[]>(URL + 'UserId=' + UserId);
+    return this.http.get<string[]>(URL + 'UserId=' + UserId + '&NeedUpdate=' + NeedUpdate);
   }
 
   public setInvestmentRecord(userid: string, stockid: string, count: number, price: number

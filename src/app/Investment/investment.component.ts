@@ -37,7 +37,7 @@ export class InvestmentComponent implements OnInit {
       this.showInputUserId = true;
     }
     else {
-      this.GetRecord(this.cookieUserId);
+      this.GetRecord(this.cookieUserId, 'true');
     }
   }
 
@@ -56,7 +56,7 @@ export class InvestmentComponent implements OnInit {
       this.cookieUserId = e.value;
       this.showInputUserId = false;
 
-      this.GetRecord(e.value);
+      this.GetRecord(e.value, 'false');
     }
   }
 
@@ -76,13 +76,13 @@ export class InvestmentComponent implements OnInit {
     this.showInputUserId = true;
   }
 
-  GetRecord(UserId: string) {
+  GetRecord(UserId: string, NeedUpdate: string) {
     this.btnAddStockDisabled = true;
     this.txtStockId = '';
     this.txtStockCount = '';
     this.txtStockPrice = '';
 
-    this.GeneralService.getInvestmentRecord(UserId).subscribe(
+    this.GeneralService.getInvestmentRecord(UserId, NeedUpdate).subscribe(
       (response: string[]) => {
         this.Stock_Array = [];
         response.forEach(x => {
@@ -97,6 +97,7 @@ export class InvestmentComponent implements OnInit {
       },
       (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
     );
+
   }
 
   SetRate(e: any) {
@@ -115,11 +116,14 @@ export class InvestmentComponent implements OnInit {
       this.GeneralService.setInvestmentRecord(UserId, StockId, Number(StockCount), Number(StockPrice)).subscribe(
         (response: boolean) => {
           if (response) {
-            this.GetRecord(UserId);
-            this.txtStockId = '';
-            this.txtStockCount = '';
-            this.txtStockPrice = '';
+            this.GetRecord(UserId, 'true');
           }
+          else {
+            this.GetRecord(UserId, 'false');
+          }
+          this.txtStockId = '';
+          this.txtStockCount = '';
+          this.txtStockPrice = '';
 
         },
         (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
