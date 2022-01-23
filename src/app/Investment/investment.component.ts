@@ -85,6 +85,8 @@ export class InvestmentComponent implements OnInit {
     this.GeneralService.getInvestmentRecord(UserId, NeedUpdate).subscribe(
       (response: string[]) => {
         this.Stock_Array = [];
+        this.sumEarning = 0;
+        this.sumRevenue = 0;
         response.forEach(x => {
           this.Stock_Array.push(x);
           this.sumEarning += (Number(x.toString().split(',')[9]));
