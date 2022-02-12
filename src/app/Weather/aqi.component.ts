@@ -53,8 +53,8 @@ export class AqiComponent implements OnInit {
   public Last3: number = 0;
   public Last3_County: string = '';
 
-  public Top4to8: string[] = [];
-  public Last4to8: string[] = [];
+  public OtherTop: string[] = [];
+  public OtherLast: string[] = [];
 
   //2. City List (Bar Chart)
   // public barChartData: ChartDataSets[] = [];
@@ -123,6 +123,7 @@ export class AqiComponent implements OnInit {
         }
 
         let max: number = 0;
+        let tempCounty_Array: string[] = [];
 
         for (let county of County_Array) {
           var temp_Array = response.records.filter((x: { County: string; }) => x.County == county);
@@ -150,12 +151,13 @@ export class AqiComponent implements OnInit {
           if (Number(Count_O3.toFixed(2)) > max) { max = Number(Count_O3.toFixed(2)); }
           if (Number(Count_SO2.toFixed(2)) > max) { max = Number(Count_SO2.toFixed(2)); }
           if (Number(Count_NO2.toFixed(2)) > max) { max = Number(Count_NO2.toFixed(2)); }
+
+          tempCounty_Array.push(county);
         }
 
         //Rank
         let index = 0;
         let tempAQI_Array: number[] = AQI_Array;
-        let tempCounty_Array: string[] = County_Array;
 
         //Best
         index = tempAQI_Array.indexOf(Math.min(...tempAQI_Array));
@@ -201,18 +203,18 @@ export class AqiComponent implements OnInit {
 
         while (tempAQI_Array.length > 0) {
           temp_index = tempAQI_Array.indexOf(Math.min(...tempAQI_Array));
-          temp_Status = tempCounty_Array[temp_index] + ':' + Number(tempAQI_Array[temp_index].toFixed(0));
+          temp_Status = tempCounty_Array[temp_index] + '!' + (Number(tempAQI_Array[temp_index].toFixed(0))).toString();
 
           if (Number(tempAQI_Array[temp_index]) <= 50) {
-            this.Top4to8.push(temp_Status);
+            this.OtherTop.push(temp_Status);
           }
           else {
-            this.Last4to8.push(temp_Status);
+            this.OtherLast.push(temp_Status);
           }
           tempAQI_Array.splice(temp_index, 1);
           tempCounty_Array.splice(temp_index, 1);
         }
-        this.Last4to8 = this.Last4to8.slice().reverse();
+        this.OtherLast = this.OtherLast.slice().reverse();
 
         max = Number((max / 10).toFixed(0)) * 10;
 
@@ -261,7 +263,7 @@ export class AqiComponent implements OnInit {
             hoverBackgroundColor: Color_5,
             hoverBorderColor: "silver",
             borderWidth: 1
-          },
+          }
         ];
 
         //Label

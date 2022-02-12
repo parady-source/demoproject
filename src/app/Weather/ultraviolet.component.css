@@ -45,8 +45,40 @@ table th {
     flex-direction: row;
 }
 
-.new-item {
-    width: 20%;
+.new-item-header {
+    width: 10%;
     text-align: center;
     line-height: 30px;
+}
+
+.new-item {
+    width: 15%;
+    text-align: center;
+    line-height: 30px;
+}
+
+.table-flex-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 80px);
+    grid-gap: 1rem;
+
+    /* boring properties */
+    background: #fcfcfc;
+    padding: 1rem;
+    width: 100%;
+    padding: 5px 0px;
+    margin: 5px 0px;
+}
+
+.table-flex-item {
+    height: max-content;
+    width: auto;
+    text-align: center;
+    background: white;
+    align-self: stretch;
+    margin: 10px;
+}
+
+.table-flex-item:hover {
+    background: #eee;
 }

@@ -57,14 +57,33 @@ export class UltravioletComponent implements OnInit {
 
         //2.取得資料
         //response.fields.forEach((element: any) => console.log(element.id));
-        this.UVRecordDataSource.data = response.records;
-        this.items = response.records;
 
-        this.Array_1 = response.records.filter((x: { UVI: string; }) => Number(x.UVI) >= 0 && Number(x.UVI) < 3);
-        this.Array_2 = response.records.filter((x: { UVI: string; }) => Number(x.UVI) >= 3 && Number(x.UVI) < 6);
-        this.Array_3 = response.records.filter((x: { UVI: string; }) => Number(x.UVI) >= 6 && Number(x.UVI) < 8);
-        this.Array_4 = response.records.filter((x: { UVI: string; }) => Number(x.UVI) >= 8 && Number(x.UVI) < 11);
-        this.Array_5 = response.records.filter((x: { UVI: string; }) => Number(x.UVI) >= 11);
+        let datalist = [];
+
+        let sitelist: string[] = [];
+
+        for (let record of response.records) {
+          sitelist.push(record.County + record.SiteName);
+        }
+        sitelist = [...new Set(sitelist)];
+
+        for (let site of sitelist) {
+          datalist.push(response.records.filter((x: { County: string; SiteName: string }) => (x.County + x.SiteName) == site)[0]);
+        }
+
+        this.UVRecordDataSource.data = datalist;
+        this.items = datalist;
+
+        this.Array_1 = datalist.filter((x: { UVI: string; }) => Number(x.UVI) >= 0 && Number(x.UVI) < 3);
+        console.log(this.Array_1);
+        this.Array_2 = datalist.filter((x: { UVI: string; }) => Number(x.UVI) >= 3 && Number(x.UVI) < 6);
+        console.log(this.Array_2);
+        this.Array_3 = datalist.filter((x: { UVI: string; }) => Number(x.UVI) >= 6 && Number(x.UVI) < 8);
+        console.log(this.Array_3);
+        this.Array_4 = datalist.filter((x: { UVI: string; }) => Number(x.UVI) >= 8 && Number(x.UVI) < 11);
+        console.log(this.Array_4);
+        this.Array_5 = datalist.filter((x: { UVI: string; }) => Number(x.UVI) >= 11);
+        console.log(this.Array_5);
 
       },
       (error: HttpErrorResponse) => this.GeneralService.HandleError(error)
