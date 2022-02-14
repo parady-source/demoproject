@@ -69,11 +69,22 @@
                 <mat-icon *ngIf="!isExpanded">keyboard_arrow_right</mat-icon>
             </button>
             {{ NavTitle }}
-            <span class="toolbar-spacer"></span>
+            <span class="toolbar-spacer">
+            </span>
+            <span style="float: right;">
+                <p>{{IndexTimer}}</p>
+            </span>
             <!-- <button mat-button>Logout</button> -->
         </mat-toolbar>
         <div class="main-content">
-            <p></p>
+            <div class="flex-container">
+                <div class="flex-item-left">
+                    <img src="{{IndexImage}}" style="width:auto;height:90%;max-height: fit-content;">
+                </div>
+                <div class="flex-item-right">
+                    {{IndexQuote}}
+                </div>
+            </div>
         </div>
         <router-outlet></router-outlet>
     </mat-sidenav-content>

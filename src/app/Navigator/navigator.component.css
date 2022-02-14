@@ -72,3 +72,33 @@ mat-sidenav {
 ::-webkit-scrollbar-corner {
   background: #222;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  font-size: 26px;
+  text-align: center;
+  vertical-align: baseline;
+}
+
+.flex-item-left {
+  padding: 10%;
+  flex: 40%;
+}
+
+.flex-item-right {
+  line-height: 50px;
+  padding: 10%;
+  flex: 60%;
+}
+
+/* Responsive layout - makes a one column-layout instead of two-column layout */
+@media (max-width: 800px) {
+  .flex-container {
+    flex-direction: column;
+  }
+}

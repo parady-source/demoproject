@@ -28,6 +28,12 @@ export class GeneralService {
 
   constructor(private http: HttpClient) { }
 
+  public getQuote(
+  ): Observable<any> {
+    const URL = 'https://thesimpsonsquoteapi.glitch.me/quotes';
+    return this.http.get<any>(URL);
+  }
+
   public getAQIRecord(
   ): Observable<any> {
     const URL = this.url + '/v1/aqx_p_432?format=json&api_key=' + this.apikey;
