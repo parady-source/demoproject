@@ -1,4 +1,34 @@
-.box {
+* {
+    box-sizing: border-box;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    font-size: 1rem;
     text-align: center;
-    vertical-align: text-top;
+    vertical-align: baseline;
+}
+
+.flex-item-left {
+    padding: 10%;
+    flex: 30%;
+}
+
+.flex-item-left img {
+    height: auto;
+    width: 30%;
+}
+
+.flex-item-right {
+    line-height: 50px;
+    padding: 10%;
+    flex: 70%;
+}
+
+/* Responsive layout - makes a one column-layout instead of two-column layout */
+@media (max-width: 800px) {
+    .flex-container {
+        flex-direction: column;
+    }
 }

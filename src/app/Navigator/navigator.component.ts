@@ -4,8 +4,6 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { MatSidenav } from '@angular/material/sidenav';
 import { ViewChild } from '@angular/core';
-import { GeneralService } from '../general.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-navigator',
@@ -37,19 +35,13 @@ export class NavigatorComponent {
   isFinanceShowing = true;
   showFinanceSubmenu: boolean = false;
 
-  constructor(private breakpointObserver: BreakpointObserver, private _GeneralService: GeneralService) { }
+  constructor(private breakpointObserver: BreakpointObserver) { }
 
   public SideNavTitle = 'Demo Project';
   public NavTitle = '';
-  public IndexImage = '';
-  public IndexQuote = '';
   public IndexTimer = '';
 
   ngOnInit() {
-    this.getQuote();
-    setInterval(() => {
-      this.getQuote();
-    }, 10000);
     setInterval(() => {
       var d = new Date();
       this.IndexTimer =
@@ -57,21 +49,6 @@ export class NavigatorComponent {
         + ' '
         + d.getHours().toString().padStart(2, '0') + ':' + d.getMinutes().toString().padStart(2, '0') + ':' + d.getSeconds().toString().padStart(2, '0');
     }, 1000);
-  }
-
-  getQuote() {
-    this._GeneralService.getQuote().subscribe(
-      (response: any) => {
-        if (response.length > 0) {
-          this.IndexImage = response[0].image;
-          this.IndexQuote = response[0].quote;
-        } else {
-          this.IndexImage = '';
-          this.IndexQuote = '';
-        }
-      },
-      (error: HttpErrorResponse) => this._GeneralServiceFFF.HandleError(error)
-    );
   }
 
   get SumValue() {
