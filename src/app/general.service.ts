@@ -23,6 +23,8 @@ export class GeneralService {
 
   stockurl = 'https://www.tpex.org.tw/openapi/v1/tpex_mainboard_peratio_analysis';
 
+  Get_Cors_Api_Url = 'https://script.google.com/macros/s/AKfycbzhDPSV5yBGS6ALkxCoReP1fK0-XBh41uu9bfhpeb4d5DSeOA9fL4POLGJsSEA_neoIkA/exec?';
+
   InvestmentReadUrl = 'https://script.google.com/macros/s/AKfycbz0nlvVLj1YOjynW0RPbcoUGvZbSPNWFBeBU41fsmarRwFhkEigrvXSs9TMA718vMUv/exec?';
   InvestmentCreateUrl = 'https://script.google.com/macros/s/AKfycbyKhzrLNNdAxJn75Kptlpjb0bTXzKGYLqi0Hblj2_RFk9FXR6CE04uElgyXcdurhgRkTg/exec?';
 
@@ -48,13 +50,13 @@ export class GeneralService {
   public getAQIRecord(
   ): Observable<any> {
     const URL = this.url + '/v2/aqx_p_432?api_key=' + this.apikey;
-    return this.http.get<any>(URL, this.httpOptions);
+    return this.http.get<any>(this.Get_Cors_Api_Url + 'url=' + URL, this.httpOptions);
   }
 
   public getUVRecord(
   ): Observable<any> {
     const URL = this.url + '/v2/uv_s_01?api_key=' + this.apikey;
-    return this.http.get<any>(URL, this.httpOptions);
+    return this.http.get<any>(this.Get_Cors_Api_Url + 'url=' + URL, this.httpOptions);
   }
 
   public getInvestmentRecord(UserId: string, NeedUpdate: string): Observable<any> {
