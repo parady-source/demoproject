@@ -74,6 +74,8 @@ export class AqiComponent implements OnInit {
     this.GeneralService.getAQIRecord().subscribe(
       (response: any) => {
 
+        console.log(response);
+
         //1.取得標題 (不需要因為沒有要全用)
         //response.fields.forEach((element: any) => this.displayedColumns.push(element.id));
         //response.fields.forEach((element: any) => console.log(element.id));

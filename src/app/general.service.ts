@@ -19,7 +19,7 @@ export class Record {
 export class GeneralService {
 
   url = 'https://data.epa.gov.tw/api';
-  apikey = '0874be33-c993-4def-8726-6cc53c1c3684';
+  apikey = '6545dff2-8344-4847-a55a-f45bb44af086';
 
   stockurl = 'https://www.tpex.org.tw/openapi/v1/tpex_mainboard_peratio_analysis';
 
@@ -27,6 +27,17 @@ export class GeneralService {
   InvestmentCreateUrl = 'https://script.google.com/macros/s/AKfycbyKhzrLNNdAxJn75Kptlpjb0bTXzKGYLqi0Hblj2_RFk9FXR6CE04uElgyXcdurhgRkTg/exec?';
 
   constructor(private http: HttpClient) { }
+
+  public httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'https://data.epa.gov.tw/',
+      'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
+      'Access-Control-Max-Age': '86400'
+    }),
+    method: 'GET', // GET, POST, PUT, DELETE
+    mode: 'no-cors'
+  };
 
   public getQuote(
   ): Observable<any> {
@@ -36,14 +47,14 @@ export class GeneralService {
 
   public getAQIRecord(
   ): Observable<any> {
-    const URL = this.url + '/v1/aqx_p_432?format=json&api_key=' + this.apikey;
-    return this.http.get<any>(URL);
+    const URL = this.url + '/v2/aqx_p_432?api_key=' + this.apikey;
+    return this.http.get<any>(URL, this.httpOptions);
   }
 
   public getUVRecord(
   ): Observable<any> {
-    const URL = this.url + '/v1/uv_s_01?format=json&api_key=' + this.apikey;
-    return this.http.get<any>(URL);
+    const URL = this.url + '/v2/uv_s_01?api_key=' + this.apikey;
+    return this.http.get<any>(URL, this.httpOptions);
   }
 
   public getInvestmentRecord(UserId: string, NeedUpdate: string): Observable<any> {
