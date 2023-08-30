@@ -14,8 +14,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { GeneralService } from '../general.service';
 
-import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
-import { Label } from 'ng2-charts';
+import { ChartDataset, ChartType, ChartOptions } from 'chart.js';
+import { NgChartsModule, NgChartsConfiguration } from 'ng2-charts';
 
 @Component({
   selector: 'app-aqi',
@@ -27,11 +27,11 @@ export class AqiComponent implements OnInit {
   barChartOptions: ChartOptions = {
     responsive: true,
   };
-  barChartLabels: Label[] = [''];
+  barChartLabels: String[] = [''];
   barChartType: ChartType = 'bar';
   barChartLegend = true;
   barChartPlugins = [];
-  barChartData: ChartDataSets[] = [{ data: [0], label: '' }];
+  barChartData: ChartDataset[] = [{ data: [0], label: '' }];
 
   public item: Array<any> = new Array<any>();
 
@@ -275,9 +275,9 @@ export class AqiComponent implements OnInit {
         this.barChartOptions = {
           responsive: true,
           scales: {
-            yAxes: [{
-              ticks: { beginAtZero: true, stepSize: 10, min: 0, max: max }
-            }]
+            // yAxes: [{
+            //   ticks: { beginAtZero: true, stepSize: 10, min: 0, max: max }
+            // }]
           }
         };
 

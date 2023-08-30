@@ -44,7 +44,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { CdkTableModule } from '@angular/cdk/table';
-import { ChartsModule } from 'ng2-charts';
+import { NgChartsModule, NgChartsConfiguration } from 'ng2-charts';
 
 import { CookieService } from 'ngx-cookie-service';
 
@@ -80,7 +80,6 @@ const appRoutes: Routes = [
     LayoutModule,
 
     AngularPaginatorModule,
-
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
@@ -105,10 +104,10 @@ const appRoutes: Routes = [
     MatTooltipModule,
     MatProgressSpinnerModule,
     CdkTableModule,
-    ChartsModule
+    NgChartsModule
   ],
   exports: [MatSortModule, MatTableModule],
-  providers: [GeneralService, CookieService],
+  providers: [GeneralService, CookieService, NgChartsConfiguration],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
