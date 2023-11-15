@@ -12,12 +12,7 @@ import { ViewChild } from '@angular/core';
 })
 export class NavigatorComponent {
   [x: string]: any;
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map((result) => result.matches),
-      shareReplay()
-    );
+  isHandset$: Observable<boolean>
 
   @ViewChild('sidenav')
   sidenav!: MatSidenav;
@@ -35,7 +30,14 @@ export class NavigatorComponent {
   isFinanceShowing = true;
   showFinanceSubmenu: boolean = false;
 
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  constructor(private breakpointObserver: BreakpointObserver) {
+    this.isHandset$ = this.breakpointObserver
+      .observe(Breakpoints.Handset)
+      .pipe(
+        map((result) => result.matches),
+        shareReplay()
+      );
+  }
 
   public SideNavTitle = 'Demo Project';
   public NavTitle = '';
